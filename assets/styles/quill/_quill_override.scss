@@ -1,0 +1,11 @@
+$quill-base-height: 30vh !default;
+$quill-max-height: 60vh !default;
+
+.ql-container.ql-snow {
+  height: auto;
+}
+.ql-editor {
+  height: $quill-base-height;
+  max-height: $quill-max-height;
+  overflow-y: scroll;
+}
