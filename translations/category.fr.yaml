@@ -1,0 +1,16 @@
+category:
+  name:
+    label: Catégorie
+    placeholder: Nom de la catégorie
+    help: le nom de la catégorie permettra d'identifier la catégorie
+  enabled:
+    label: Activée
+    help: une catégorie doit être activée pour être visible
+
+action:
+  add:
+    success: La catégorie a été ajoutée avec succès !
+    error: Cette catégorie n'a pas pu être ajoutée...
+  edit:
+    success: La catégorie a été mise à jour avec succès !
+    error: Cette catégorie n'a pas pu être mise à jour...

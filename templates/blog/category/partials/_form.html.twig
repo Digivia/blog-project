@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.enabled) }}
+    {{ form_row(form.description) }}
+    <p>Description</p>
+    <div id="description" class="rich-text" data-target-id="category_description">
+    </div>
+{#    {{ form_widget(form) }}#}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
