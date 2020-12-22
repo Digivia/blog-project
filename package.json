@@ -30,9 +30,11 @@
     },
     "dependencies": {
         "bootstrap": "^5.0.0-beta1",
+        "bootstrap-icons": "^1.2.1",
         "highlight.js": "^10.4.1",
         "quill": "^1.3.7",
-        "quill-image-resize-module": "^3.0.0"
+        "quill-image-resize-module": "^3.0.0",
+        "sweetalert2": "^10.12.5"
     },
     "browserslist": [
         "cover 95%"
