@@ -2,7 +2,7 @@
 
 namespace App\Entity\Blog;
 
-use App\Repository\Blog\CategoryRepository;
+use App\Repository\ORM\Blog\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;

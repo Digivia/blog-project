@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Repository\Blog;
+declare(strict_types=1);
+
+namespace App\Repository\ORM\Blog;
 
 use App\Entity\Blog\Category;
-use App\Gateway\DoctrineSaveAwareTrait;
+use App\Gateway\DoctrineBehavior\DoctrineRemoveAwareTrait;
+use App\Gateway\DoctrineBehavior\DoctrineSaveAwareTrait;
+use App\Repository\CategoryRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Category|null find($id, $lockMode = null, $lockVersion = null)
- * @method Category|null findOneBy(array $criteria, array $orderBy = null)
- * @method Category[]    findAll()
- * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class CategoryRepository
+ * @package App\Repository\ORM\Blog
  */
-class CategoryRepository extends ServiceEntityRepository
+final class CategoryRepository extends ServiceEntityRepository implements CategoryRepositoryInterface
 {
-    use DoctrineSaveAwareTrait;
+    use DoctrineSaveAwareTrait, DoctrineRemoveAwareTrait;
 
     public function __construct(ManagerRegistry $registry)
     {

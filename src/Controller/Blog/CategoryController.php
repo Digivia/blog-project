@@ -3,9 +3,8 @@
 namespace App\Controller\Blog;
 
 use App\Entity\Blog\Category;
-use App\Form\Blog\CategoryType;
 use App\Handler\Form\Category\CategoryFormHandler;
-use App\Repository\Blog\CategoryRepository;
+use App\Repository\CategoryRepositoryInterface;
 use Digivia\FormHandler\HandlerFactory\HandlerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,14 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/blog/category")
  */
-class CategoryController extends AbstractController
+final class CategoryController extends AbstractController
 {
     /**
      * @Route("/", name="blog_category_index", methods={"GET"})
-     * @param CategoryRepository $categoryRepository
+     * @param CategoryRepositoryInterface $categoryRepository
      * @return Response
      */
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(CategoryRepositoryInterface $categoryRepository): Response
     {
         return $this->render('blog/category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
@@ -38,13 +37,13 @@ class CategoryController extends AbstractController
     public function new(Request $request, HandlerFactoryInterface $factory): Response
     {
         $category = new Category();
-        $handler = $factory->createHandler(CategoryFormHandler::class);
+        $handler  = $factory->createHandler(CategoryFormHandler::class);
         if ($handler->handle($request, $category, [], ['creation' => true])) {
             return $this->redirectToRoute('blog_category_index');
         }
         return $this->render('blog/category/new.html.twig', [
             'category' => $category,
-            'form' => $handler->createView(),
+            'form'     => $handler->createView(),
         ]);
     }
 
@@ -64,22 +63,18 @@ class CategoryController extends AbstractController
      * @Route("/{id}/edit", name="blog_category_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Category $category
+     * @param HandlerFactoryInterface $factory
      * @return Response
      */
-    public function edit(Request $request, Category $category): Response
+    public function edit(Request $request, Category $category, HandlerFactoryInterface $factory): Response
     {
-        $form = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+        $handler = $factory->createHandler(CategoryFormHandler::class);
+        if ($handler->handle($request, $category)) {
             return $this->redirectToRoute('blog_category_index');
         }
-
         return $this->render('blog/category/edit.html.twig', [
             'category' => $category,
-            'form' => $form->createView(),
+            'form'     => $handler->createView(),
         ]);
     }
 
@@ -87,14 +82,13 @@ class CategoryController extends AbstractController
      * @Route("/{id}", name="blog_category_delete", methods={"DELETE"})
      * @param Request $request
      * @param Category $category
+     * @param CategoryRepositoryInterface $categoryRepository
      * @return Response
      */
-    public function delete(Request $request, Category $category): Response
+    public function delete(Request $request, Category $category, CategoryRepositoryInterface $categoryRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($category);
-            $entityManager->flush();
+        if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
+            $categoryRepository->remove($category);
         }
 
         return $this->redirectToRoute('blog_category_index');

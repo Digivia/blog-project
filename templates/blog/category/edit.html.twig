@@ -5,9 +5,9 @@
 {% block content %}
     <h1>Edit Category</h1>
 
-    {{ include('blog/category/partials/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('blog/category/_partials/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('blog_category_index') }}">back to list</a>
 
-    {{ include('blog/category/partials/_delete_form.html.twig') }}
+    {{ include('blog/category/_partials/_delete_form.html.twig') }}
 {% endblock %}
