@@ -16,6 +16,10 @@
                 <td>{{ category.name }}</td>
             </tr>
             <tr>
+                <th>Content</th>
+                <td>{{ category.description|raw }}</td>
+            </tr>
+            <tr>
                 <th>Enabled</th>
                 <td>{{ category.enabled ? 'Yes' : 'No' }}</td>
             </tr>

@@ -18,7 +18,7 @@
 %}
 {% for label, messages in app.flashes() %}
     {% for message in messages %}
-        <div class="flashbag alert alert-{{ alert_mapping[label] }}" data-flash-type="{{ label }}">
+        <div class="flashbag d-none alert alert-{{ alert_mapping[label] }}" data-flash-type="{{ label }}">
             <i class="fad {{ alert_icon[label] }}"></i> <span>{{ message }}</span>
         </div>
     {% endfor %}
