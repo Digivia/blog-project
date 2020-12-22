@@ -5,7 +5,7 @@ import Quill from 'quill'
 import ImageResize from 'quill-image-resize-module'
 
 // Import styles
-import '../styles/quill/quill.scss'
+import '../../styles/quill/quill.scss'
 
 export default function (container) {
     // Register module image resizer
