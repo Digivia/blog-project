@@ -18,4 +18,6 @@ return [
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Digivia\FormHandler\DigiviaFormHandlerBundle::class => ['all' => true],
     Knp\Bundle\TimeBundle\KnpTimeBundle::class => ['all' => true],
+    Knp\Bundle\GaufretteBundle\KnpGaufretteBundle::class => ['all' => true],
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
 ];

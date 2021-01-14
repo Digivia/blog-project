@@ -1,0 +1,9 @@
+knp_gaufrette:
+  stream_wrapper: ~
+  adapters:
+    category_image_adapter:
+      local:
+        directory: '%kernel.project_dir%/public/%env(IMAGE_DEFAULT_PATH)%/%env(IMAGE_CATEGORY_PATH)%'
+  filesystems:
+    category_image_fs:
+      adapter: category_image_adapter

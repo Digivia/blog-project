@@ -96,6 +96,18 @@
     "jms/metadata": {
         "version": "2.4.0"
     },
+    "knplabs/gaufrette": {
+        "version": "v0.9.0"
+    },
+    "knplabs/knp-components": {
+        "version": "v3.0.0"
+    },
+    "knplabs/knp-gaufrette-bundle": {
+        "version": "v0.7.1"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.4.2"
+    },
     "knplabs/knp-time-bundle": {
         "version": "v1.14.0"
     },
