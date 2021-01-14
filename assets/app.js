@@ -1,10 +1,11 @@
-import './styles/app.scss';
+import './styles/app.scss'
 
 // start the Stimulus application
-import './bootstrap';
+import './bootstrap'
 import hljs from 'highlight.js'
-import flashMessage from "./js/flashMessage";
-import quillHandler from "./js/quill/quillHandler";
+import flashMessage from "./js/flashMessage"
+import quillHandler from "./js/quill/quillHandler"
+import ChoiceJs from './js/choicesJsInit'
 
 // Flash messages with sweetAlert2
 flashMessage()
@@ -12,3 +13,5 @@ flashMessage()
 quillHandler()
 // Start highlight js
 hljs.initHighlighting();
+// Choice Js
+ChoiceJs()

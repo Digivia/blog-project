@@ -2,7 +2,6 @@ import Swal from 'sweetalert2'
 
 export default function () {
     const Toast = Swal.mixin({
-        icon: 'success',
         position: 'top-end',
         showConfirmButton: false,
         timer: 2000
@@ -18,7 +17,8 @@ export default function () {
             // Launch sweet alert :)
             Toast.fire({
                 type:  flashType,
-                title: content
+                title: content,
+                icon: flashType,
             })
         })
     })
