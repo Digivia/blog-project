@@ -1,0 +1,7 @@
+{% set max_chars = 20 %}
+<div class="d-inline" title="{{ category.name }}">
+    {{ category.name|length > max_chars ? category.name|slice(0, max_chars) ~ '...' : category.name}}
+</div>
+<div class="d-inline">
+    <a href="{{ path('blog_category_show', {'id': category.id}) }}" class="text-muted pb-2"><i class="bi-pencil"></i></a>
+</div>

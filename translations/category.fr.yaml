@@ -6,6 +6,10 @@ category:
   enabled:
     label: Activée
     help: une catégorie doit être activée pour être visible
+  parent:
+    label: Catégorie parente
+    placeholder: Aucune catégorie parente
+    help: Choisissez une catégorie parente si besoin. Sinon, la catégorie sera une catégorie principale.
 
 action:
   add:

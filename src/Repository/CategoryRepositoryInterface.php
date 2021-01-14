@@ -13,4 +13,7 @@ use App\Gateway\GatewayInterface;
  */
 interface CategoryRepositoryInterface extends GatewayInterface
 {
+    public function getRootNodesQueryBuilder($sortByField = null, $direction = 'asc');
+    public function getRootNodes($sortByField = null, $direction = 'asc');
+    public function getSameLevelCategories(int $level = 1): array;
 }

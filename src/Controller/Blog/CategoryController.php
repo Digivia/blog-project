@@ -3,6 +3,7 @@
 namespace App\Controller\Blog;
 
 use App\Entity\Blog\Category;
+use App\Exception\Category\CategoryNotDeletableException;
 use App\Handler\Form\Category\CategoryFormHandler;
 use App\Repository\CategoryRepositoryInterface;
 use Digivia\FormHandler\HandlerFactory\HandlerFactoryInterface;
@@ -24,7 +25,19 @@ final class CategoryController extends AbstractController
     public function index(CategoryRepositoryInterface $categoryRepository): Response
     {
         return $this->render('blog/category/index.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $categoryRepository->getSameLevelCategories(),
+        ]);
+    }
+
+    /**
+     * @Route("/tree", name="blog_category_tree", methods={"GET"})
+     * @param CategoryRepositoryInterface $categoryRepository
+     * @return Response
+     */
+    public function tree(CategoryRepositoryInterface $categoryRepository): Response
+    {
+        return $this->render('blog/category/tree.html.twig', [
+            'categories' => $categoryRepository->getSameLevelCategories(),
         ]);
     }
 
@@ -88,9 +101,18 @@ final class CategoryController extends AbstractController
     public function delete(Request $request, Category $category, CategoryRepositoryInterface $categoryRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
-            $categoryRepository->remove($category);
+            try {
+                $categoryRepository->remove($category);
+            } catch (CategoryNotDeletableException $categoryNotDeletableException) {
+                $this->addFlash(
+                    "error",
+                    sprintf(
+                        "La catagorie %s ne peut pas être supprimée car elle possède des enfants",
+                        $categoryNotDeletableException->getCategory()->getName()
+                    )
+                );
+            }
         }
-
         return $this->redirectToRoute('blog_category_index');
     }
 }

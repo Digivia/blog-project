@@ -3,6 +3,8 @@
 namespace App\Form\Blog;
 
 use App\Entity\Blog\Category;
+use App\Repository\CategoryRepositoryInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -20,9 +22,20 @@ class CategoryType extends AbstractType
                 'help'  => 'category.name.help',
                 'attr'  => ['placeholder' => 'category.name.placeholder']
             ])
+            ->add('parent', EntityType::class, [
+                'class' => Category::class,
+                'query_builder' => function (CategoryRepositoryInterface $er) {
+                    return $er->getSameLevelCategoriesQB();
+                },
+                'required' => false,
+                'placeholder' => 'category.parent.placeholder',
+                'label' => 'category.parent.label',
+                'help' => 'category.parent.help',
+            ])
             ->add('enabled', CheckboxType::class, [
-                'label' => 'category.enabled.label',
-                'help'  => 'category.enabled.help',
+                'label'    => 'category.enabled.label',
+                'help'     => 'category.enabled.help',
+                'required' => false,
             ])
             ->add('description', HiddenType::class);
     }

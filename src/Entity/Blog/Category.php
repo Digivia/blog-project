@@ -3,6 +3,7 @@
 namespace App\Entity\Blog;
 
 use App\Repository\ORM\Blog\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -10,6 +11,7 @@ use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @Gedmo\Tree(type="nested")
  */
 class Category
 {
@@ -43,19 +45,58 @@ class Category
     private ?string $uuid;
 
     /**
-     * @Gedmo\SortablePosition
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private ?int $position;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private string $description;
+    private ?string $description;
+
+    /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
+     */
+    private ?int $lft;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    private ?int $lvl;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     */
+    private ?int $rgt;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\ManyToOne(targetEntity=Category::class)
+     * @ORM\JoinColumn(name="tree_root", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private ?Category $root;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    private ?Category $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private ?Collection $children;
 
     public function __construct()
     {
         $this->uuid = Uuid::v4();
+        $this->parent = null;
+        $this->enabled = false;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 
     public function getId(): ?int
@@ -107,17 +148,6 @@ class Category
         return $this;
     }
 
-    public function getPosition(): ?int
-    {
-        return $this->position;
-    }
-
-    public function setPosition(?int $position): self
-    {
-        $this->position = $position;
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -128,5 +158,36 @@ class Category
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getLvl(): ?int
+    {
+        return $this->lvl;
+    }
+
+    public function setLvl(?int $lvl): Category
+    {
+        $this->lvl = $lvl;
+        return $this;
+    }
+
+    public function getRoot(): ?Category
+    {
+        return $this->root;
+    }
+
+    public function setParent(?Category $parent = null)
+    {
+        $this->parent = $parent;
+    }
+
+    public function getParent(): ?Category
+    {
+        return $this->parent;
+    }
+
+    public function getChildren(): ?Collection
+    {
+        return $this->children;
     }
 }
