@@ -1,0 +1,15 @@
+api_platform:
+    title: 'Digivia Blog API'
+    description: 'API du blog - Digivia'
+    version: '1.0.0'
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Entity'
+            - '%kernel.project_dir%/config/api'
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
+    exception_to_status:
+        App\Exception\Category\CategoryNotDeletableException: 418
+        App\Exception\Category\CategoryNotAvailableException: 404

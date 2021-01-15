@@ -1,0 +1,16 @@
+resources:
+  App\Entity\Blog\Category:
+    attributes:
+      pagination_items_per_page: 2
+      normalization_context:
+        groups : ['category:read']
+        swagger_definition_name: 'Read'
+      denormalization_context:
+        groups: ['category:write']
+        swagger_definition_name: 'Write'
+    properties:
+      id:
+        identifier: true
+      parent:
+        readableLink: false
+        writableLink: false

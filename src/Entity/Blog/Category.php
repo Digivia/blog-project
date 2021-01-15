@@ -3,9 +3,11 @@
 namespace App\Entity\Blog;
 
 use App\Repository\ORM\Blog\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Uid\Uuid;
 
@@ -25,11 +27,13 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"category:read", "category:write"})
      */
     private ?string $name;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"category:read", "category:write"})
      */
     private ?bool $enabled;
 
@@ -46,6 +50,7 @@ class Category
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"category:read", "category:write"})
      */
     private ?string $description;
 
@@ -78,18 +83,21 @@ class Category
      * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     * @Groups({"category:read", "category:write"})
      */
     private ?Category $parent;
 
     /**
      * @ORM\OneToMany(targetEntity=Category::class, mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
+     * @Groups({"category:read"})
      */
     private ?Collection $children;
 
     public function __construct()
     {
         $this->uuid = Uuid::v4();
+        $this->children = new ArrayCollection;
         $this->parent = null;
         $this->enabled = false;
     }

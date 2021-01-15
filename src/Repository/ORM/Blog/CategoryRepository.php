@@ -106,6 +106,17 @@ final class CategoryRepository extends NestedTreeRepository implements CategoryR
     }
 
     /**
+     * @return Category[]
+     */
+    public function getAllChildCategories(): array
+    {
+        return (array) $this->createQueryBuilder('c')
+            ->where('c.lvl > 0')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param object $entity
      * @return void
      * @throws BadEntityObjectException
