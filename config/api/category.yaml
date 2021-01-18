@@ -1,7 +1,8 @@
 resources:
   App\Entity\Blog\Category:
     attributes:
-      pagination_items_per_page: 2
+      pagination_client_items_per_page: true
+      pagination_items_per_page: 5
       normalization_context:
         groups : ['category:read']
         swagger_definition_name: 'Read'
