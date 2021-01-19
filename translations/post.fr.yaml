@@ -1,0 +1,23 @@
+post:
+  title:
+    label: Titre
+    placeholder: Titre de ton article
+    help: Ce titre apparaîtra sur ton blog
+  digest:
+    label: Résumé
+    placeholder: Un résumé de ton article
+    help: Ce résumé apparaitra sur la liste des articles
+  content:
+    label: Contenu
+    help: Ecris ton article ici
+  categories:
+    label: Associations
+    help: Associes ton article à une ou plusieurs catégories
+
+action:
+  add:
+    success: Ton article a été ajoutée avec succès !
+    error: Ton article n'a pas pu être ajoutée...
+  edit:
+    success: Ton article a été mise à jour avec succès !
+    error: Ton article n'a pas pu être mise à jour...

@@ -27,7 +27,7 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"category:read", "category:write"})
+     * @Groups({"category:read", "category:write", "post:read"})
      */
     private ?string $name;
 
@@ -94,12 +94,18 @@ class Category
      */
     private ?Collection $children;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Post::class, mappedBy="categories")
+     */
+    private $posts;
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
         $this->children = new ArrayCollection;
         $this->parent = null;
         $this->enabled = false;
+        $this->posts = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -197,5 +203,32 @@ class Category
     public function getChildren(): ?Collection
     {
         return $this->children;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            $post->removeCategory($this);
+        }
+
+        return $this;
     }
 }

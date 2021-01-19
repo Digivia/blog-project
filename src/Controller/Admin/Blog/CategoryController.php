@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Blog;
+namespace App\Controller\Admin\Blog;
 
 use App\Entity\Blog\Category;
 use App\Exception\Category\CategoryNotDeletableException;

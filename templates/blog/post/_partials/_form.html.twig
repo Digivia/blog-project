@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.categories, {attr: {class: 'js-choice'}}) }}
+    {{ form_row(form.digest) }}
+    {{ form_row(form.content) }}
+<p>Description</p>
+<div id="content" class="rich-text" data-target-id="post_content">
+</div>
+{#    {{ form_widget(form) }}#}
+<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

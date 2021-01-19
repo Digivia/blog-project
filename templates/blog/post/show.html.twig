@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block content %}
+    <h1>Post</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ post.title }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ post.slug }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ post.content|raw }}</td>
+            </tr>
+            <tr>
+                <th>PublishedAt</th>
+                <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ post.status }}</td>
+            </tr>
+            <tr>
+                <th>Digest</th>
+                <td>{{ post.digest }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Image.name</th>
+                <td>{{ post.image.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('blog_post_index') }}">back to list</a>
+
+    <a href="{{ path('blog_post_edit', {'id': post.id}) }}">edit</a>
+
+    {{ include('blog/post/_partials/_delete_form.html.twig') }}
+{% endblock %}

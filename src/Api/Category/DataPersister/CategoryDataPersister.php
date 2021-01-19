@@ -22,7 +22,6 @@ class CategoryDataPersister implements ContextAwareDataPersisterInterface
 
     public function persist($data, array $context = [])
     {
-        dump($data);
         $this->categoryRepository->save($data);
         return $data;
     }
