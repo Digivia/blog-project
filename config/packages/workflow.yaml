@@ -1,0 +1,27 @@
+framework:
+    workflows:
+        blog_publish:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'status'
+            supports:
+                - App\Entity\Blog\Post
+            initial_marking: draft
+            places:
+                - draft
+                - published
+                - trash
+            transitions:
+                publish:
+                    from: draft
+                    to: published
+                modify:
+                    from: published
+                    to: draft
+                delete:
+                    from: published
+                    to: trash
+                undelete:
+                    from: trash
+                    to: published
