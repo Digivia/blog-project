@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/admin_base.html.twig' %}
 
 {% block title %}Category index{% endblock %}
 
@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col-12 col-md-6 col-lg-4 d-flex">
-            {% import 'blog/category/_macro/tree.macro.html.twig' as macro %}
+            {% import 'admin/blog/category/_macro/tree.macro.html.twig' as macro %}
             <ul class="tree cascade">
                 {{ macro.multilevel(categories) }}
             </ul>

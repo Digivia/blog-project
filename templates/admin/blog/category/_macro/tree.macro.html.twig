@@ -6,7 +6,7 @@
     {% for category in categories %}
         <li>
             <div class="level-{{ category.lvl }}">
-                {% include 'blog/category/_partials/tree_category_content.html.twig' with {category: category} %}
+                {% include 'admin/blog/category/_partials/tree_category_content.html.twig' with {category: category} %}
             </div>
             {% if category.children%}
                 {{ macro.multilevel(category.children, true) }}

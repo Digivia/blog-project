@@ -24,7 +24,7 @@ final class CategoryController extends AbstractController
      */
     public function index(CategoryRepositoryInterface $categoryRepository): Response
     {
-        return $this->render('blog/category/index.html.twig', [
+        return $this->render('admin/blog/category/index.html.twig', [
             'categories' => $categoryRepository->getSameLevelCategories(),
         ]);
     }
@@ -36,7 +36,7 @@ final class CategoryController extends AbstractController
      */
     public function tree(CategoryRepositoryInterface $categoryRepository): Response
     {
-        return $this->render('blog/category/tree.html.twig', [
+        return $this->render('admin/blog/category/tree.html.twig', [
             'categories' => $categoryRepository->getSameLevelCategories(),
         ]);
     }
@@ -54,7 +54,7 @@ final class CategoryController extends AbstractController
         if ($handler->handle($request, $category, [], ['creation' => true])) {
             return $this->redirectToRoute('blog_category_index');
         }
-        return $this->render('blog/category/new.html.twig', [
+        return $this->render('admin/blog/category/new.html.twig', [
             'category' => $category,
             'form'     => $handler->createView(),
         ]);
@@ -67,7 +67,7 @@ final class CategoryController extends AbstractController
      */
     public function show(Category $category): Response
     {
-        return $this->render('blog/category/show.html.twig', [
+        return $this->render('admin/blog/category/show.html.twig', [
             'category' => $category,
         ]);
     }
@@ -85,7 +85,7 @@ final class CategoryController extends AbstractController
         if ($handler->handle($request, $category)) {
             return $this->redirectToRoute('blog_category_index');
         }
-        return $this->render('blog/category/edit.html.twig', [
+        return $this->render('admin/blog/category/edit.html.twig', [
             'category' => $category,
             'form'     => $handler->createView(),
         ]);

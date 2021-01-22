@@ -23,7 +23,7 @@ final class PostController extends AbstractController
      */
     public function index(PostRepositoryInterface $postRepository): Response
     {
-        return $this->render('blog/post/index.html.twig', [
+        return $this->render('admin/blog/post/index.html.twig', [
             'posts' => $postRepository->findAll(),
         ]);
     }
@@ -41,7 +41,7 @@ final class PostController extends AbstractController
         if ($handler->handle($request, $post, [], ['creation' => true])) {
             return $this->redirectToRoute('blog_post_index');
         }
-        return $this->render('blog/post/new.html.twig', [
+        return $this->render('admin/blog/post/new.html.twig', [
             'post' => $post,
             'form' => $handler->createView(),
         ]);
@@ -54,7 +54,7 @@ final class PostController extends AbstractController
      */
     public function show(Post $post): Response
     {
-        return $this->render('blog/post/show.html.twig', [
+        return $this->render('admin/blog/post/show.html.twig', [
             'post' => $post,
         ]);
     }
@@ -72,7 +72,7 @@ final class PostController extends AbstractController
         if ($handler->handle($request, $post)) {
             return $this->redirectToRoute('blog_post_index');
         }
-        return $this->render('blog/post/edit.html.twig', [
+        return $this->render('admin/blog/post/edit.html.twig', [
             'post' => $post,
             'form' => $handler->createView(),
         ]);

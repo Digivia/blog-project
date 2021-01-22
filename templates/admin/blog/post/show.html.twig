@@ -1,0 +1,60 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block content %}
+    <h1>Article « <small>{{ post.title }}</small> »</h1>
+
+    <table class="table table-dark">
+        <tbody>
+            <tr>
+                <th>Identifiant</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ post.title }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ post.slug }}</td>
+            </tr>
+            <tr>
+                <th>Digest</th>
+                <td>{{ post.digest }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ post.content|raw }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ post.status }}</td>
+            </tr>
+            <tr>
+                <th>Publié le</th>
+                <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Créé</th>
+                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Dernière modification</th>
+                <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ post.image.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="action mt-3">
+        <a href="{{ path('blog_post_index') }}" class="btn btn-outline-secondary">Retour</a>
+        <a href="{{ path('blog_post_edit', {'id': post.id}) }}" class="btn btn-outline-orange">Modifier</a>
+    </div>
+    <div class="position-relative">
+        {{ include('admin/blog/post/_partials/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
