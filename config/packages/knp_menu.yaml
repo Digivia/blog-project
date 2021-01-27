@@ -1,0 +1,7 @@
+# config/packages/knp_menu.yaml
+knp_menu:
+  twig:
+#    template: KnpMenuBundle::menu.html.twig
+    template: KnpMenuBundle::menu.html.twig
+  templating: false
+  default_renderer: twig

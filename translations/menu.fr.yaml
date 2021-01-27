@@ -1,0 +1,10 @@
+menu:
+  home: Accueil
+  categories:
+    label: Catégories
+    all: Toutes les catégories
+    new: Nouvelle catégorie
+  post:
+    label: Articles
+    all: Tous les articles
+    new : Nouvel article

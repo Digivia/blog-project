@@ -3,6 +3,7 @@
 namespace App\Controller\Admin\Blog;
 
 use App\Entity\Blog\Category;
+use App\Controller\RouteCatalog;
 use App\Exception\Category\CategoryNotDeletableException;
 use App\Handler\Form\Category\CategoryFormHandler;
 use App\Repository\CategoryRepositoryInterface;
@@ -13,12 +14,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/blog/category")
+ * @Route("/admin/blog/category")
  */
 final class CategoryController extends AbstractController
 {
     /**
-     * @Route("/", name="blog_category_index", methods={"GET"})
+     * @Route("/", name=RouteCatalog::ADMIN_CATEGORY_INDEX, methods={"GET"})
      * @param CategoryRepositoryInterface $categoryRepository
      * @return Response
      */
@@ -30,7 +31,7 @@ final class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/tree", name="blog_category_tree", methods={"GET"})
+     * @Route("/tree", name="blog_admin_category_tree", methods={"GET"})
      * @param CategoryRepositoryInterface $categoryRepository
      * @return Response
      */
@@ -42,7 +43,7 @@ final class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="blog_category_new", methods={"GET","POST"})
+     * @Route("/new", name=RouteCatalog::ADMIN_CATEGORY_NEW, methods={"GET","POST"})
      * @param Request $request
      * @param HandlerFactoryInterface $factory
      * @return Response
@@ -52,7 +53,7 @@ final class CategoryController extends AbstractController
         $category = new Category();
         $handler  = $factory->createHandler(CategoryFormHandler::class);
         if ($handler->handle($request, $category, [], ['creation' => true])) {
-            return $this->redirectToRoute('blog_category_index');
+            return $this->redirectToRoute(RouteCatalog::ADMIN_CATEGORY_INDEX);
         }
         return $this->render('admin/blog/category/new.html.twig', [
             'category' => $category,
@@ -61,7 +62,7 @@ final class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="blog_category_show", methods={"GET"})
+     * @Route("/{id}", name=RouteCatalog::ADMIN_CATEGORY_SHOW, methods={"GET"})
      * @param Category $category
      * @return Response
      */
@@ -73,7 +74,7 @@ final class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="blog_category_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name=RouteCatalog::ADMIN_CATEGORY_EDIT, methods={"GET","POST"})
      * @param Request $request
      * @param Category $category
      * @param HandlerFactoryInterface $factory
@@ -83,7 +84,7 @@ final class CategoryController extends AbstractController
     {
         $handler = $factory->createHandler(CategoryFormHandler::class);
         if ($handler->handle($request, $category)) {
-            return $this->redirectToRoute('blog_category_index');
+            return $this->redirectToRoute(RouteCatalog::ADMIN_CATEGORY_INDEX);
         }
         return $this->render('admin/blog/category/edit.html.twig', [
             'category' => $category,
@@ -92,7 +93,7 @@ final class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="blog_category_delete", methods={"DELETE"})
+     * @Route("/{id}", name=RouteCatalog::ADMIN_CATEGORY_DELETE, methods={"DELETE"})
      * @param Request $request
      * @param Category $category
      * @param CategoryRepositoryInterface $categoryRepository
@@ -113,6 +114,6 @@ final class CategoryController extends AbstractController
                 );
             }
         }
-        return $this->redirectToRoute('blog_category_index');
+        return $this->redirectToRoute(RouteCatalog::ADMIN_CATEGORY_INDEX);
     }
 }

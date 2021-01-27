@@ -51,8 +51,8 @@
     </table>
 
     <div class="action mt-3">
-        <a href="{{ path('blog_post_index') }}" class="btn btn-outline-secondary">Retour</a>
-        <a href="{{ path('blog_post_edit', {'id': post.id}) }}" class="btn btn-outline-orange">Modifier</a>
+        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_INDEX')) }}" class="btn btn-outline-secondary">Retour</a>
+        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_EDIT'), {'id': post.id}) }}" class="btn btn-outline-orange">Modifier</a>
     </div>
     <div class="position-relative">
         {{ include('admin/blog/post/_partials/_delete_form.html.twig') }}

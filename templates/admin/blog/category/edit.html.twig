@@ -7,7 +7,7 @@
 
     {{ include('admin/blog/category/_partials/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('blog_category_index') }}">back to list</a>
+    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_INDEX')) }}">back to list</a>
 
     {{ include('admin/blog/category/_partials/_delete_form.html.twig') }}
 {% endblock %}

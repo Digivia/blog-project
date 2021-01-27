@@ -21,12 +21,12 @@
                         <small class="text-muted">Créée le {{ category.createdAt|ago }}</small>
                     </div>
                     <div class="action">
-                        <a href="{{ path('blog_category_show', {'id': category.id}) }}" class="btn btn-outline-secondary"><i class="bi-binoculars-fill"></i></a>
-                        <a href="{{ path('blog_category_edit', {'id': category.id}) }}" class="btn btn-outline-secondary"><i class="bi-pencil-square"></i></a>
+                        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="btn btn-outline-secondary"><i class="bi-binoculars-fill"></i></a>
+                        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_EDIT'), {'id': category.id}) }}" class="btn btn-outline-secondary"><i class="bi-pencil-square"></i></a>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
-    <a href="{{ path('blog_category_new') }}" class="btn btn-outline-secondary">Ajouter une catégorie</a>
+    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_NEW')) }}" class="btn btn-outline-secondary">Ajouter une catégorie</a>
 {% endblock %}

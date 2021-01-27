@@ -10,14 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Controller\RouteCatalog;
 
 /**
- * @Route("/blog/post")
+ * @Route("/admin/blog/post")
  */
 final class PostController extends AbstractController
 {
     /**
-     * @Route("/", name="blog_post_index", methods={"GET"})
+     * @Route("/", name=RouteCatalog::ADMIN_POST_INDEX, methods={"GET"})
      * @param PostRepositoryInterface $postRepository
      * @return Response
      */
@@ -29,7 +30,7 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="blog_post_new", methods={"GET","POST"})
+     * @Route("/new", name=RouteCatalog::ADMIN_POST_NEW, methods={"GET","POST"})
      * @param Request $request
      * @param HandlerFactoryInterface $factory
      * @return Response
@@ -39,7 +40,7 @@ final class PostController extends AbstractController
         $post = new Post();
         $handler = $factory->createHandler(PostFormHandler::class);
         if ($handler->handle($request, $post, [], ['creation' => true])) {
-            return $this->redirectToRoute('blog_post_index');
+            return $this->redirectToRoute(RouteCatalog::ADMIN_POST_INDEX);
         }
         return $this->render('admin/blog/post/new.html.twig', [
             'post' => $post,
@@ -48,7 +49,7 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="blog_post_show", methods={"GET"})
+     * @Route("/{id}", name=RouteCatalog::ADMIN_POST_SHOW, methods={"GET"})
      * @param Post $post
      * @return Response
      */
@@ -60,7 +61,7 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="blog_post_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name=RouteCatalog::ADMIN_POST_EDIT, methods={"GET","POST"})
      * @param Request $request
      * @param Post $post
      * @param HandlerFactoryInterface $factory
@@ -70,7 +71,7 @@ final class PostController extends AbstractController
     {
         $handler = $factory->createHandler(PostFormHandler::class);
         if ($handler->handle($request, $post)) {
-            return $this->redirectToRoute('blog_post_index');
+            return $this->redirectToRoute(RouteCatalog::ADMIN_POST_INDEX);
         }
         return $this->render('admin/blog/post/edit.html.twig', [
             'post' => $post,
@@ -79,7 +80,7 @@ final class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="blog_post_delete", methods={"DELETE"})
+     * @Route("/{id}", name=RouteCatalog::ADMIN_POST_DELETE, methods={"DELETE"})
      * @param Request $request
      * @param Post $post
      * @param PostRepositoryInterface $postRepository
@@ -90,6 +91,6 @@ final class PostController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $postRepository->remove($post);
         }
-        return $this->redirectToRoute('blog_post_index');
+        return $this->redirectToRoute(RouteCatalog::ADMIN_POST_INDEX);
     }
 }

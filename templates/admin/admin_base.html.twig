@@ -20,20 +20,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="navbar-collapse collapse" id="navbarColor01" style="">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Catégories</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Articles</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Commentaires</a>
-                            </li>
-                        </ul>
+                        {{ knp_menu_render('admin_main_menu', {template: 'admin/blog/_menu/admin_main_menu.html.twig'}) }}
                         <form class="d-flex">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-light" type="submit">Search</button>

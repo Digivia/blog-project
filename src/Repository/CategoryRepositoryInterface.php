@@ -17,5 +17,11 @@ interface CategoryRepositoryInterface extends GatewayInterface
 {
     public function getRootNodesQueryBuilder($sortByField = null, $direction = 'asc');
     public function getRootNodes($sortByField = null, $direction = 'asc');
-    public function getSameLevelCategories(int $level = 1): array;
+
+    /**
+     * @param int $level
+     * @param int|null $maxResults
+     * @return Category[]
+     */
+    public function getSameLevelCategories(int $level = 1, int $maxResults = null): array;
 }

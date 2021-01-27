@@ -76,15 +76,17 @@ final class CategoryRepository extends NestedTreeRepository implements CategoryR
     }
 
     /**
-     * @param int $level
-     * @return array
+     * @inheritDoc
      */
-    public function getSameLevelCategories(int $level = 1): array
+    public function getSameLevelCategories(int $level = 1, int $maxResults = null): array
     {
-        return (array) $this
-            ->getSameLevelCategoriesQB()
-            ->getQuery()
-            ->getResult();
+        $query = $this
+            ->getSameLevelCategoriesQB();
+        // Max result if needed
+        if (null !== $maxResults) {
+            $query->setMaxResults($maxResults);
+        }
+        return (array) $query->getQuery()->getResult();
     }
 
     /**

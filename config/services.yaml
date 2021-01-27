@@ -32,5 +32,11 @@ services:
         tags:
             - { name: digivia.handler }
 
+    # Menu setup
+    app.admin_menu_builder:
+        class: App\Menu\AdminMenuBuilder
+        arguments: [ "@knp_menu.factory" ]
+        tags:
+            - { name: knp_menu.menu_builder, method: createMainAdminMenu, alias: admin_main_menu } # The alias is what is used to retrieve the menu
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

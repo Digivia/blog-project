@@ -7,5 +7,5 @@
 
     {{ include('admin/blog/category/_partials/_form.html.twig') }}
 
-    <a href="{{ path('blog_category_index') }}">back to list</a>
+    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_INDEX')) }}">back to list</a>
 {% endblock %}

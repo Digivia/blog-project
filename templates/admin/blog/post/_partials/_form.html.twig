@@ -4,10 +4,10 @@
     {{ form_row(form.digest) }}
     {{ form_row(form.content) }}
 <p class="mt-1">Description</p>
-<div id="content" class="rich-text bg-light text-dark" data-target-id="post_content">
+<div id="content" class="rich-text bg-light text-dark" data-target-id="post_content" is="element-autogrow">
 </div>
 <div class="action mt-3">
     <button class="btn btn-outline-orange">{{ button_label|default('Enregistrer') }}</button>
-    <a href="{{ path('blog_post_index') }}" class="btn btn-outline-secondary">Retour</a>
+    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_INDEX')) }}" class="btn btn-outline-secondary">Retour</a>
 </div>
 {{ form_end(form) }}
