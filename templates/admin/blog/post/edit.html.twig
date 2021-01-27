@@ -1,9 +1,9 @@
 {% extends 'admin/admin_base.html.twig' %}
 
-{% block title %}Edit Post{% endblock %}
+{% block title %}#Edit {{ post.title }}{% endblock %}
 
 {% block content %}
-    <h1>Edit Post</h1>
+    <h1>#Edit « <small>{{ post.title }}</small> »</h1>
     {{ include('admin/blog/post/_partials/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
     <div class="position-relative">
         {{ include('admin/blog/post/_partials/_delete_form.html.twig') }}

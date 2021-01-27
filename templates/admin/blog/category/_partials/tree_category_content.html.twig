@@ -1,7 +1,11 @@
 {% set max_chars = 20 %}
-<div class="d-inline" title="{{ category.name }}">
-    {{ category.name|length > max_chars ? category.name|slice(0, max_chars) ~ '...' : category.name}}
-</div>
-<div class="d-inline">
-    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="text-muted pb-2"><i class="bi-pencil"></i></a>
-</div>
+{#<div class="d-inline" title="{{ category.name }}">#}
+    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="btn">
+        {{ category.name|length > max_chars ? category.name|slice(0, max_chars) ~ '...' : category.name}}
+    </a>
+{#</div>#}
+{#<div class="d-inline ps-1">#}
+{#    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_EDIT'), {'id': category.id}) }}" class="text-muted pb-2">#}
+{#        {% include '_partials/svg/pencil.svg.twig' %}#}
+{#    </a>#}
+{#</div>#}

@@ -31,7 +31,7 @@ final class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/tree", name="blog_admin_category_tree", methods={"GET"})
+     * @Route("/tree", name=RouteCatalog::ADMIN_CATEGORY_TREE, methods={"GET"})
      * @param CategoryRepositoryInterface $categoryRepository
      * @return Response
      */

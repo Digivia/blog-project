@@ -2,6 +2,7 @@ menu:
   home: Accueil
   categories:
     label: Catégories
+    tree: Arbo catégories
     all: Toutes les catégories
     new: Nouvelle catégorie
   post:

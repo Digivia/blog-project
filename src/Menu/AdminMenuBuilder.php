@@ -42,11 +42,17 @@ class AdminMenuBuilder
         $categoryMenu
             ->addChild('menu.categories.all', [
                 'route' => RouteCatalog::ADMIN_CATEGORY_INDEX,
+            ])
+            ->setExtra('translation_domain', 'menu');
+        $categoryMenu
+            ->addChild('menu.categories.tree', [
+                'route' => RouteCatalog::ADMIN_CATEGORY_TREE,
                 'attributes' => [
                     'divider_append' => true
                 ]
             ])
             ->setExtra('translation_domain', 'menu');
+
         foreach ($this->categoryRepository->getSameLevelCategories(1, 5) as $category) {
             $categoryMenu->addChild($category->getName(), [
                 'route' => RouteCatalog::ADMIN_CATEGORY_SHOW,
