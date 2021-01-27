@@ -6,7 +6,7 @@ $quill-max-height: 60vh !default;
 }
 .ql-editor {
   height: $quill-base-height;
-  max-height: $quill-max-height;
+  //max-height: $quill-max-height;
   overflow-y: scroll;
 }
 

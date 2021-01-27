@@ -1,0 +1,16 @@
+.choices__list--dropdown {
+  background-color: $gray-900;
+  color: $gray-100;
+}
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+  background-color: $gray-600;
+}
+
+.choices__inner, .choices__input {
+  background-color: $gray-200;
+}
+
+.choices__list--multiple .choices__item {
+  background-color: $orange-500;
+  border-color: $orange-600;
+}

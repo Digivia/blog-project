@@ -7,3 +7,17 @@
 .nav-link {
   font-size: 1.25rem;
 }
+
+.dgv-navbar-list {
+  margin-right: auto !important;
+}
+
+.dropdown-item.active {
+  background-color: $orange-500;
+}
+
+.dropdown-item:hover {
+  color: #1e2125;
+  background-color: $orange-200;
+  background-image: var(--bs-gradient);
+}

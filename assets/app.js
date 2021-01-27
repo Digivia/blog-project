@@ -3,6 +3,7 @@ import './styles/app.scss'
 // start the Stimulus application
 import './bootstrap'
 import 'bootstrap/js/src/collapse'
+import 'bootstrap/js/src/dropdown'
 import hljs from 'highlight.js'
 import flashMessage from "./js/flashMessage"
 import quillHandler from "./js/quill/quillHandler"
