@@ -1,11 +1,13 @@
 {{ form_start(form) }}
-    {{ form_row(form.parent, {attr: {class: 'js-choice'}}) }}
     {{ form_row(form.name) }}
+    {{ form_row(form.parent, {attr: {class: 'js-choice'}}) }}
     {{ form_row(form.enabled) }}
     {{ form_row(form.description) }}
     <p>Description</p>
     <div id="description" class="rich-text bg-light text-dark" data-target-id="category_description">
     </div>
-{#    {{ form_widget(form) }}#}
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    <div class="action mt-3">
+        <button class="btn btn-outline-orange">{{ button_label|default('Enregistrer') }}</button>
+        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_INDEX')) }}" class="btn btn-outline-secondary">Retour</a>
+    </div>
 {{ form_end(form) }}

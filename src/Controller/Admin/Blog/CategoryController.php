@@ -26,7 +26,7 @@ final class CategoryController extends AbstractController
     public function index(CategoryRepositoryInterface $categoryRepository): Response
     {
         return $this->render('admin/blog/category/index.html.twig', [
-            'categories' => $categoryRepository->getSameLevelCategories(),
+            'categories' => $categoryRepository->getAllChildCategories(),
         ]);
     }
 

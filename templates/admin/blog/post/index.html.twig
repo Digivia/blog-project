@@ -4,7 +4,6 @@
 
 {% block content %}
     <h1 class="text-teal">#Articles</h1>
-
     <table class="table table-dark table-striped">
         <thead>
             <tr>
@@ -25,8 +24,6 @@
                 <td>{{ post.status }}</td>
                 <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i') : '' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i') : '' }}</td>
-                {% dump(post.createdAt) %}
-                {% dump(post.updatedAt) %}
                 <td>{{ post.updatedAt and post.updatedAt > post.createdAt ? post.updatedAt|date('Y-m-d H:i') : '' }}</td>
                 <td>
                     <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_SHOW'), {'id': post.id}) }}" class="btn btn-outline-info">aperçu</a>

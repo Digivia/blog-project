@@ -1,16 +1,31 @@
-.choices__list--dropdown {
-  background-color: $gray-900;
-  color: $gray-100;
-}
-.choices__list--dropdown .choices__item--selectable.is-highlighted {
-  background-color: $gray-600;
+.choices {
+  margin-bottom: 0;
 }
 
 .choices__inner, .choices__input {
-  background-color: $gray-200;
+  background-color: $gray-300;
+  color: $gray-900;
 }
 
-.choices__list--multiple .choices__item {
-  background-color: $orange-500;
-  border-color: $orange-600;
+.choices__inner {
+  font-size: 1rem;
+}
+
+.choices__list--multiple {
+  & .choices__item {
+    font-size: 1rem;
+    background-color: $orange-500;
+    border-color: $orange-600;
+  }
+}
+
+.choices__list--dropdown{
+  background-color: $gray-900;
+  color: $gray-100;
+  & .choices__item {
+    font-size: 1rem;
+  }
+  & .choices__item--selectable.is-highlighted {
+    background-color: $gray-600;
+  }
 }

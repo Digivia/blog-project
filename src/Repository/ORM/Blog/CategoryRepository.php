@@ -113,11 +113,13 @@ final class CategoryRepository extends NestedTreeRepository implements CategoryR
     public function getAllChildCategoriesQuery(): QueryBuilder
     {
         return $this->createQueryBuilder('c')
-                    ->where('c.lvl > 0');
+                    ->where('c.lvl > 0')
+                    ->orderBy('c.lft', 'ASC')
+            ;
     }
 
     /**
-     * @return Category[]
+     * @inheritDoc
      */
     public function getAllChildCategories(): array
     {

@@ -3,30 +3,86 @@
 {% block title %}Category index{% endblock %}
 
 {% block content %}
-    <h1>Catégories</h1>
-
-    <div class="row">
+    <h1>#Catégories</h1>
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Active</th>
+            <th>Parent</th>
+            <th>Enfants</th>
+            <th>Créé</th>
+            <th>Mis à jour</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for category in categories %}
-            <div class="col-12 col-md-6 col-lg-4 d-flex">
-                <div class="digivia-card with-action">
-                    <div class="left">
-                    <span class="digivia-letter-badge">
-                        {{ category.name|first }}
-                    </span>
-                    </div>
-                    <div class="right ms-3">
-                        <h2 class="h3">{{ category.name }}</h2>
-                        <small class="text-muted"><span class="badge bg-info">{{ category.children|length }}</span> sous-catégories</small>
-                        <br>
-                        <small class="text-muted">Créée le {{ category.createdAt|ago }}</small>
-                    </div>
-                    <div class="action">
-                        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="btn btn-outline-secondary"><i class="bi-binoculars-fill"></i></a>
-                        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_EDIT'), {'id': category.id}) }}" class="btn btn-outline-secondary"><i class="bi-pencil-square"></i></a>
-                    </div>
-                </div>
-            </div>
+            <tr>
+                <td>
+                    {% for l in  1..category.lvl %}
+                        <span class="text-muted">
+                            {% include '_partials/svg/backspace_reverse.svg.twig' %}
+                        </span>
+                    {% endfor %}
+                      {% include 'admin/blog/category/_partials/tree_category_content.html.twig' with {link_class: 'link-info', max_chars: 30} %}
+                </td>
+                <td>
+                    {% if category.enabled %}
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                    {% else %}
+                        <i class="bi bi-x-circle-fill text-danger"></i>
+                    {% endif %}
+                </td>
+                <td>{{ category.parent.name|default('Aucune')|replace({'ROOT': 'Racine'})  }}</td>
+                <td>{{ category.children|length  }}</td>
+                <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ category.updatedAt and category.updatedAt > category.createdAt ? category.updatedAt|date('Y-m-d H:i') : '' }}</td>
+                <td>
+                    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="btn btn-outline-info">aperçu</a>
+                    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_EDIT'), {'id': category.id}) }}" class="btn btn-outline-teal">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">Tu n'as créé aucune catégorie pour le moment...</td>
+            </tr>
         {% endfor %}
-    </div>
-    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_NEW')) }}" class="btn btn-outline-secondary">Ajouter une catégorie</a>
+        </tbody>
+    </table>
+
+    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_NEW')) }}" class="btn btn-outline-orange">
+        {% include '_partials/svg/pencil.svg.twig' %}
+        Créer une catégorie
+    </a>
+
+
+
+
+
+
+{#    <div class="row">#}
+{#        {% for category in categories %}#}
+{#            <div class="col-12 col-md-6 col-lg-4 d-flex">#}
+{#                <div class="digivia-card with-action">#}
+{#                    <div class="left">#}
+{#                    <span class="digivia-letter-badge">#}
+{#                        {{ category.name|first }}#}
+{#                    </span>#}
+{#                    </div>#}
+{#                    <div class="right ms-3">#}
+{#                        <h2 class="h3">{{ category.name }}</h2>#}
+{#                        <small class="text-muted"><span class="badge bg-info">{{ category.children|length }}</span> sous-catégories</small>#}
+{#                        <br>#}
+{#                        <small class="text-muted">Créée le {{ category.createdAt|ago }}</small>#}
+{#                    </div>#}
+{#                    <div class="action">#}
+{#                        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="btn btn-outline-secondary"><i class="bi-binoculars-fill"></i></a>#}
+{#                        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_EDIT'), {'id': category.id}) }}" class="btn btn-outline-secondary"><i class="bi-pencil-square"></i></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{#    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_NEW')) }}" class="btn btn-outline-secondary">Ajouter une catégorie</a>#}
 {% endblock %}

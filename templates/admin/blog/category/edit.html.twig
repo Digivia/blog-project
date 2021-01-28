@@ -1,13 +1,11 @@
 {% extends 'admin/admin_base.html.twig' %}
 
-{% block title %}Edit Category{% endblock %}
+{% block title %}#Edit {{ category.name }}{% endblock %}
 
 {% block content %}
-    <h1>Edit Category</h1>
-
-    {{ include('admin/blog/category/_partials/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_INDEX')) }}">back to list</a>
-
-    {{ include('admin/blog/category/_partials/_delete_form.html.twig') }}
+    <h1>#Edit « <small>{{ category.name }}</small> »</h1>
+    {{ include('admin/blog/category/_partials/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div class="position-relative">
+        {{ include('admin/blog/category/_partials/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

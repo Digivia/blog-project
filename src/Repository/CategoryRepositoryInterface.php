@@ -24,4 +24,9 @@ interface CategoryRepositoryInterface extends GatewayInterface
      * @return Category[]
      */
     public function getSameLevelCategories(int $level = 1, int $maxResults = null): array;
+
+    /**
+     * @return Category[]
+     */
+    public function getAllChildCategories(): array;
 }
