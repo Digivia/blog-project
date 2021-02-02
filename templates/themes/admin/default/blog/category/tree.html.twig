@@ -3,7 +3,13 @@
 {% block title %}Category index{% endblock %}
 
 {% block content %}
-    <h1>#Arborescence</h1>
+    <h1>
+        #Arborescence
+        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_NEW')) }}" class="btn btn-outline-orange float-right">
+            {% include '@admin/_partials/svg/pencil.svg.twig' %}
+            Créer une catégorie
+        </a>
+    </h1>
     <div class="row">
         {% if categories|length %}
             <div class="col-12 col-md-6 col-lg-4 d-flex">
@@ -21,8 +27,4 @@
             </div>
         {% endif %}
     </div>
-    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_NEW')) }}" class="btn btn-outline-orange">
-        {% include '@admin/_partials/svg/pencil.svg.twig' %}
-        Ajouter une catégorie
-    </a>
 {% endblock %}
