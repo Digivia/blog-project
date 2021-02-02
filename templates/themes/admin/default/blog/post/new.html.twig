@@ -1,0 +1,8 @@
+{% extends '@admin/admin_base.html.twig' %}
+
+{% block title %}New Post{% endblock %}
+
+{% block content %}
+    <h1>#New</h1>
+    {{ include('@admin/blog/post/_partials/_form.html.twig') }}
+{% endblock %}

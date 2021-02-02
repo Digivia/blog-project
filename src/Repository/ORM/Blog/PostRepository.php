@@ -8,6 +8,7 @@ use App\Entity\Blog\Post;
 use App\Gateway\DoctrineBehavior\DoctrineRemoveAwareTrait;
 use App\Repository\PostRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Workflow\WorkflowInterface;
 
@@ -39,5 +40,31 @@ class PostRepository extends ServiceEntityRepository implements PostRepositoryIn
         // Save in Db
         $this->_em->persist($entity);
         $this->_em->flush();
+    }
+
+    /**
+     * @param string|null $search
+     * @param array|string[] $allowedStatus
+     * @return Query
+     */
+    public function getPostQuery(string $search = null, array $allowedStatus = ['all']): Query
+    {
+        $qb = $this->createQueryBuilder('p');
+        // Search by keyword
+        if (null !== $search && strlen($search)) {
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->like('p.title', ':search'),
+                    $qb->expr()->like('p.digest', ':search'),
+                    $qb->expr()->like('p.content', ':search')
+                ))
+                ->setParameter('search', "%{$search}%");
+        }
+        // filter status
+        if (!in_array('all', $allowedStatus) && count($allowedStatus)) {
+            $qb->andWhere('p.status IN (:status)')
+                ->setParameter('status', implode(',', $allowedStatus));
+        }
+        return $qb->getQuery();
     }
 }

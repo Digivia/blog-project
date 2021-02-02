@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('admin') }}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark dgv-navbar">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ asset('build/images/logo/digivia.svg') }}" alt="Digivia Blog Admin" height="40px">
+                    </a>
+                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse" id="navbarColor01" style="">
+                        {{ knp_menu_render('admin_main_menu', {template: '@admin/blog/_menu/admin_main_menu.html.twig'}) }}
+                        {% if app.request.attributes.get('search')|default(false) %}
+                            <form class="d-flex" method="GET">
+                                <input class="form-control me-2 with-reset" type="search" name="search-keyword" placeholder="Mot-clé" aria-label="Search" value="{{ app.request.query.get('search-keyword') }}">
+                                <button class="form-reset-icon" type="reset"></button>
+                                <button class="btn btn-outline-light" type="submit">{% include '@admin/_partials/svg/search.svg.twig' %}</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+            {% include('@admin/_partials/_flashbag.html.twig') %}
+            <div class="card p-3 bg-dark text-white-50">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+        </div>
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('admin') }}
+        {% endblock %}
+    </body>
+</html>

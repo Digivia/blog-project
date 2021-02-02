@@ -1,0 +1,26 @@
+{%
+    set alert_mapping = {
+        success:    'success',
+        warning:    'warning',
+        error:      'danger',
+        notice:     'info',
+        verify_email_error: 'warning'
+    }
+%}
+<div class="toast-container position-absolute top-0 end-0 p-3" style="z-index: 1000">
+    {% for label, messages in app.flashes() %}
+        {% for message in messages %}
+            <div class="toast bg-mid-gray text-white shadow fade hide" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-{{ alert_mapping[label] }} text-white">
+                    {% include '_partials/svg/alert_circle.svg.twig' %}
+                    <strong class="me-auto ps-2"> Information</strong>
+                    <small class="">Maintenant</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

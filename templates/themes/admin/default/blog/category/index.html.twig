@@ -1,0 +1,70 @@
+{% extends '@admin/admin_base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block content %}
+    <h1>
+        #Catégories
+        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_NEW')) }}" class="btn btn-outline-orange float-right">
+            {% include '@admin/_partials/svg/pencil.svg.twig' %}
+            Créer une catégorie
+        </a>
+    </h1>
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Active</th>
+            <th>Parent</th>
+            <th>Enfants</th>
+            <th>Créé</th>
+            <th>Mis à jour</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>
+                    {% for l in  1..category.lvl %}
+                        <span class="text-muted">
+                            {% include '@admin/_partials/svg/backspace_reverse.svg.twig' %}
+                        </span>
+                    {% endfor %}
+                      {% include '@admin/blog/category/_partials/tree_category_content.html.twig' with {link_class: 'link-info', max_chars: 30} %}
+                </td>
+                <td>
+                    {% if category.enabled %}
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                    {% else %}
+                        <i class="bi bi-x-circle-fill text-danger"></i>
+                    {% endif %}
+                </td>
+                <td>{{ category.parent.name|default('Aucune')|replace({'ROOT': 'Racine'})  }}</td>
+                <td><span class="badge bg-dark">{{ category.children|length  }}</span></td>
+                <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ category.updatedAt and category.updatedAt > category.createdAt ? category.updatedAt|date('Y-m-d H:i') : '' }}</td>
+                <td>
+                    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="btn btn-outline-info">aperçu</a>
+                    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_EDIT'), {'id': category.id}) }}" class="btn btn-outline-teal">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">
+                    <div class="alert alert-warning m-3">
+                        {% include '@admin/_partials/svg/alert_circle.svg.twig' %}
+                        Tu n'as créé aucune catégorie pour le moment...
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="count">
+        Total : {{ categories.getTotalItemCount }} catégorie(s)
+    </div>
+    <div class="navigation m-auto mt-3">
+        {{ knp_pagination_render(categories) }}
+    </div>
+{% endblock %}

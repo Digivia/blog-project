@@ -1,0 +1,56 @@
+{% extends '@admin/admin_base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block content %}
+    <h1 class="text-teal">
+        #Articles
+        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_NEW')) }}" class="btn btn-outline-orange float-right">
+            {% include '@admin/_partials/svg/pencil.svg.twig' %}
+            Rédiger un article
+        </a>
+    </h1>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(posts, 'Titre', 'p.title', {class: 'link-orange', 'data-bs-toggle': 'tooltip', title: 'Trier par titre'}, app.request.query.all) }}</th>
+                <th>{{ knp_pagination_sortable(posts, 'Statut', 'p.status', {class: 'link-orange', 'data-bs-toggle': 'tooltip', title: 'Trier par statut'}, app.request.query.all) }}</th>
+                <th>Publié le</th>
+                <th>{{ knp_pagination_sortable(posts, 'Créé le', 'p.createdAt', {class: 'link-orange', 'data-bs-toggle': 'tooltip', title: 'Trier par date de création'}, app.request.query.all) }}</th>
+                <th>Mis à jour</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>
+                    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_SHOW'), {'id': post.id}) }}" class="link-info" title="{{ post.title }}" data-bs-toggle="tooltip">
+                        {{ post.title|length > max_chars|default(30) ? post.title|slice(0, max_chars|default(30)) ~ '...' : post.title}}
+                    </a>
+                </td>
+                <td>{% include '@admin/blog/post/_partials/_post_status_display.html.twig' with {status: post.status} %}</td>
+                <td>{{ post.publishedAt ? post.publishedAt|date('d-m-Y H:i') : '' }}</td>
+                <td>{{ post.createdAt ? post.createdAt|date('d-m-Y H:i') : '' }}</td>
+                <td>{{ post.updatedAt and post.updatedAt > post.createdAt ? post.updatedAt|date('d-m-Y H:i') : '' }}</td>
+                <td>{% include '@admin/blog/post/_partials/_post_status_dropdown_actions.html.twig' with {status: post.status} %}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">
+                    <div class="alert alert-warning m-3">
+                        {% include '@admin/_partials/svg/alert_circle.svg.twig' %}
+                        Il n'y a aucun article pour le moment...
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="count">
+        Total : {{ posts.getTotalItemCount }} article(s)
+    </div>
+    <div class="navigation m-auto mt-3">
+        {{ knp_pagination_render(posts, null, app.request.query.all) }}
+    </div>
+{% endblock %}

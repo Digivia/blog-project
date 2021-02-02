@@ -27,10 +27,17 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
+    # Configure form handlers directory
     App\Handler\Form\:
         resource: '../src/Handler/Form'
         tags:
             - { name: digivia.handler }
+
+    # Event Subscriber
+    App\ORM\Event\:
+        resource: '../src/ORM/Event'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
 
     # Menu setup
     app.admin_menu_builder:

@@ -15,4 +15,5 @@ use App\Gateway\GatewayInterface;
  */
 interface PostRepositoryInterface extends GatewayInterface
 {
+
 }

@@ -1,0 +1,28 @@
+{% extends '@admin/admin_base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block content %}
+    <h1>#Arborescence</h1>
+    <div class="row">
+        {% if categories|length %}
+            <div class="col-12 col-md-6 col-lg-4 d-flex">
+                {% import '@admin/blog/category/_macro/tree.macro.html.twig' as macro %}
+                <ul class="tree cascade">
+                    {{ macro.multilevel(categories) }}
+                </ul>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning m-3">
+                    {% include '@admin/_partials/svg/alert_circle.svg.twig' %}
+                    Tu n'as créé aucune catégorie pour le moment...
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_NEW')) }}" class="btn btn-outline-orange">
+        {% include '@admin/_partials/svg/pencil.svg.twig' %}
+        Ajouter une catégorie
+    </a>
+{% endblock %}

@@ -51,6 +51,16 @@ final class CategoryFormHandler extends AbstractHandler
             'success',
             $this->translator->trans($message, [], 'category')
         );
+        if (false === $data->getEnabled() && $data->getChildren()->count()) {
+            $this->flashMessage->add(
+                'warning',
+                $this->translator->trans(
+                    'action.update_child_status',
+                    ['%cat_nr%' => $data->getChildren()->count()],
+                    'category'
+                )
+            );
+        }
     }
 
     protected function provideFormTypeClassName(): string

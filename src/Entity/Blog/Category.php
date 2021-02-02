@@ -88,6 +88,7 @@ class Category
     private ?Category $parent;
 
     /**
+     * @var Category[]
      * @ORM\OneToMany(targetEntity=Category::class, mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
      * @Groups({"category:read"})

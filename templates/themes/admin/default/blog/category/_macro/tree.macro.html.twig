@@ -1,0 +1,19 @@
+{% macro multilevel(categories, add_ul) %}
+    {% import _self as macro %}
+    {% if add_ul is same as(true) %}
+        <ul>
+    {% endif %}
+    {% for category in categories %}
+        <li>
+            <div class="level-{{ category.lvl }}">
+                {% include '@admin/blog/category/_partials/tree_category_content.html.twig' with {category: category, disabled_display: true} %}
+            </div>
+            {% if category.children%}
+                {{ macro.multilevel(category.children, true) }}
+            {% endif %}
+        </li>
+    {% endfor %}
+    {% if add_ul is same as(true) %}
+        </ul>
+    {% endif %}
+{% endmacro %}

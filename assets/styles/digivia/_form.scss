@@ -1,0 +1,30 @@
+.with-reset:placeholder-shown ~ .form-reset-icon {
+  display: none;
+}
+.form-reset-icon {
+  border:1px solid transparent;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+}
+.form-reset-icon:after {
+  content: "X";
+  display: block;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  background-color: $gray-500;
+  z-index:1;
+  right: 85px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  font-weight: normal;
+  font-size: 10px;
+  cursor: pointer;
+}

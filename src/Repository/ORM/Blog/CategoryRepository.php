@@ -8,10 +8,12 @@ use App\Entity\Blog\Category;
 use App\Exception\BadEntityObjectException;
 use App\Exception\Category\CategoryNotDeletableException;
 use App\Repository\CategoryRepositoryInterface;
+use App\Repository\ORM\Utils\EntityPropertyChangedHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\Mapping\ClassMetadata;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
@@ -108,14 +110,18 @@ final class CategoryRepository extends NestedTreeRepository implements CategoryR
     }
 
     /**
+     * @param bool $enabledOnly
      * @return QueryBuilder
      */
-    public function getAllChildCategoriesQuery(): QueryBuilder
+    public function getAllChildCategoriesQuery(bool $enabledOnly = false): QueryBuilder
     {
-        return $this->createQueryBuilder('c')
-                    ->where('c.lvl > 0')
-                    ->orderBy('c.lft', 'ASC')
-            ;
+        $qb = $this->createQueryBuilder('c')
+                    ->where('c.lvl > 0');
+        if (true === $enabledOnly) {
+            $qb->andWhere('c.enabled = 1');
+        }
+        $qb->orderBy('c.lft', 'ASC');
+        return $qb;
     }
 
     /**

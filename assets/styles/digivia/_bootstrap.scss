@@ -3,19 +3,27 @@
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 $theme-colors: (
-        "primary":    $primary,
-        "secondary":  $secondary,
-        "success":    $success,
-        "info":       $info,
-        "warning":    $warning,
-        "danger":     $danger,
-        "light":      $light,
-        "dark":       $dark,
-        "teal":       $teal-500,
-        "orange":     $orange-500,
-        "pink":       $pink-500
+        "primary":      $primary,
+        "secondary":    $secondary,
+        "success":      $success,
+        "info":         $info,
+        "warning":      $warning,
+        "danger":       $danger,
+        "light":        $light,
+        "mid-gray":     $gray-800,
+        "dark":         $dark,
+        "teal":         $teal-500,
+        "orange":       $orange-500,
+        "pink":         $pink-500
 );
 
 $enable-gradients: true;
 $enable-shadows: true;
 $input-bg: $gray-300;
+
+// Mixin for bg-* available for each theme color
+@each $color, $value in $theme-colors {
+  .bg-#{$color} {
+    background-color: $value !important;
+  }
+}

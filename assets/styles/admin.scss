@@ -1,0 +1,22 @@
+/* Bootstrap */
+@import "digivia/bootstrap";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+/* Choices.js */
+@import "~choices.js/src/styles/choices.scss";
+@import "choices/dark-theme";
+/* Quill */
+@import 'quill/quill.scss';
+/* Digivia */
+@import "digivia/variables";
+@import "digivia/helpers";
+@import "digivia/template";
+@import "digivia/navbar";
+@import "digivia/font";
+@import "digivia/form";
+@import "digivia/badge";
+@import "digivia/card";
+@import "digivia/pagination";
+@import "digivia/tree";
+@import "digivia/text";
+@import "digivia/utilities";

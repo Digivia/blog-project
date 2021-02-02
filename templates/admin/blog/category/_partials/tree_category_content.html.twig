@@ -1,3 +1,0 @@
-<a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="{{ link_class|default('btn') }}">
-    {{ category.name|length > max_chars|default(20) ? category.name|slice(0, max_chars|default(20)) ~ '...' : category.name}}
-</a>

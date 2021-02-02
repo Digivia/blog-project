@@ -16,5 +16,6 @@ action:
     success: La catégorie a été ajoutée avec succès !
     error: Cette catégorie n'a pas pu être ajoutée...
   edit:
-    success: La catégorie a été mise à jour avec succès !
+    success: La catégorie a été mise à jour avec succès.
     error: Cette catégorie n'a pas pu être mise à jour...
+  update_child_status: "%cat_nr% catégorie(s) enfant de cette catégorie a(ont) également été désactivées."

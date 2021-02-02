@@ -1,0 +1,5 @@
+<form method="post" action="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_WORKFLOW'), {id: post.id, action: action}) }}">
+    <input type="hidden" name="_method" value="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token('workflow' ~ post.id) }}">
+    <button class="dropdown-item">{{ label }}</button>
+</form>

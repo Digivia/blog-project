@@ -1,0 +1,10 @@
+post:
+  publish:
+    success: Votre article a bien été publié.
+    error: Votre article n'est pas dans un état ou il peut être publié.
+  draft:
+    success: Votre article a été remis dans les brouillons.
+    error: Votre article n'est pas dans un état ou il peut être mis en brouillon.
+  trash:
+    success: Votre article n'est plus visible.
+    error: Votre article n'est pas dans un état ou il peut être être rendu non visible.

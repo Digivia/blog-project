@@ -1,0 +1,11 @@
+.page-item {
+  &.active .page-link {
+    background-color: $orange-500;
+    border-color: $orange-500;
+    border-color: $orange-500;
+    color: white;
+  }
+  & .page-link {
+    color: $orange-500;
+  }
+}

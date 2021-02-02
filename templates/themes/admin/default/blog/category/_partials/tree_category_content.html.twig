@@ -1,0 +1,7 @@
+{% set link_class = link_class|default('btn') %}
+{% if disabled_display is defined and disabled_display is same as(true) and category.enabled is same as(false) %}
+    {% set link_class = link_class ~ ' text-strike' %}
+{% endif %}
+<a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_SHOW'), {'id': category.id}) }}" class="{{ link_class }}">
+    {{ category.name|length > max_chars|default(20) ? category.name|slice(0, max_chars|default(20)) ~ '...' : category.name}}
+</a>

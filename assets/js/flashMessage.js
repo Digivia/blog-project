@@ -1,25 +1,15 @@
-import Swal from 'sweetalert2'
+import Toast from "bootstrap/js/src/toast";
 
 export default function () {
-    const Toast = Swal.mixin({
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2000
-    })
-
     document.addEventListener('DOMContentLoaded', (event) => {
-        document.querySelectorAll('.flashbag').forEach( (alert) => {
-            // Hide alert if displayed
-            alert.style.display = 'none';
-            // Get flash type and content to display in sweet alert
-            let flashType = alert.dataset.flashType
-            let content = alert.innerHTML
-            // Launch sweet alert :)
-            Toast.fire({
-                type:  flashType,
-                title: content,
-                icon: flashType,
-            })
+        // Bootstrap toast
+        let toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        toastElList.map(function (toastEl) {
+            return new Toast(toastEl, {
+                animation: true,
+                autohide: true,
+                delay: 10000,
+            }).show()
         })
     })
 }
