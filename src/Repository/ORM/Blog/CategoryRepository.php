@@ -10,6 +10,8 @@ use App\Exception\Category\CategoryNotDeletableException;
 use App\Repository\CategoryRepositoryInterface;
 use App\Repository\ORM\Utils\EntityPropertyChangedHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
@@ -149,6 +151,22 @@ final class CategoryRepository extends NestedTreeRepository implements CategoryR
                     Category::class
                 )
             );
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function countAll(): int
+    {
+        try {
+            return (int) $this->createQueryBuilder('c')
+                ->select('count(c)')
+                ->where('c.lvl > 0')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException | NonUniqueResultException $e) {
+            return 0;
         }
     }
 }

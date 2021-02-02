@@ -23,13 +23,13 @@ class AdminDashboardController extends AbstractController
     {
         return $this->render(
             '@admin/blog/dashboard/index.html.twig',
-               [
-                   'post_nr' => $postRepository->countPostByStatus(),
-                   'publish_post_nr' => $postRepository->countPostByStatus('published'),
-                   'draft_post_nr' => $postRepository->countPostByStatus('draft'),
-                   'trash_post_nr' => $postRepository->countPostByStatus('trash'),
-                   'category_nr'    => $categoryRepository->count([]),
-               ]
+            [
+                'post_nr' => $postRepository->countPostByStatus(),
+                'publish_post_nr' => $postRepository->countPostByStatus('published'),
+                'draft_post_nr' => $postRepository->countPostByStatus('draft'),
+                'trash_post_nr' => $postRepository->countPostByStatus('trash'),
+                'category_nr' => $categoryRepository->countAll(),
+            ]
         );
     }
 }

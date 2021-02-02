@@ -30,4 +30,10 @@ interface CategoryRepositoryInterface extends GatewayInterface
      * @return Category[]
      */
     public function getAllChildCategories(): array;
+
+    /**
+     * Count all categories except root category
+     * @return int
+     */
+    public function countAll(): int;
 }
