@@ -12,6 +12,7 @@ use App\Gateway\GatewayInterface;
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
  * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Category[]    count(array $criteria)
  */
 interface CategoryRepositoryInterface extends GatewayInterface
 {

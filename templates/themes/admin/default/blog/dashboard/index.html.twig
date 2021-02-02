@@ -3,5 +3,83 @@
 {% block title %}Admin blog Dashboard{% endblock %}
 
 {% block content %}
-    <h1>DASHBOARD</h1>
+    <h1>#DASHBOARD</h1>
+    <div class="row mt-4">
+        <div class="col-12 col-lg-4 d-flex">
+            <div class="card digivia-card bg-mid-gray">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="bi bi-check-circle-fill text-success i-5x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h5 class="card-title"><span class="badge bg-success">{{ publish_post_nr }}</span> Articles
+                                publiés</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">sur {{ post_nr }} article(s) au total</h6>
+                            <hr>
+                            <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_NEW')) }}"
+                               class="btn btn-outline-light">Rédiger</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 d-flex">
+            <div class="card digivia-card bg-mid-gray">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="bi bi-vector-pen text-warning text-orange i-5x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h5 class="card-title"><span class="badge bg-warning">{{ draft_post_nr }}</span> Articles en
+                                brouillon</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">sur {{ post_nr }} article(s) au total</h6>
+                            <hr>
+                            <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_INDEX')) }}"
+                               class="btn btn-outline-light">Publiez !</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 d-flex">
+            <div class="card digivia-card bg-mid-gray">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="bi bi-trash text-danger i-5x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h5 class="card-title"><span class="badge bg-danger">{{ trash_post_nr }}</span> Articles
+                                offline</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">sur {{ post_nr }} article(s) au total</h6>
+                            <hr>
+                            {# <a href="" class="btn btn-outline-light">Rédiger</a> #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 col-lg-4 d-flex">
+            <div class="card digivia-card bg-mid-gray">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="bi bi-box text-info i-5x"></i>
+                        </div>
+                        <div class="col-8">
+                            <h5 class="card-title"><span class="badge bg-info">{{ category_nr }}</span> Catégories</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">pour bien ranger vos articles</h6>
+                            <hr>
+                            <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_CATEGORY_INDEX')) }}"
+                               class="btn btn-outline-light">Gérez vos catégories</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

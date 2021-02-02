@@ -1,3 +1,25 @@
 .float-right {
   float: right;
 }
+
+.lh0 {
+  line-height: 0;
+}
+
+.container-full-height {
+  min-height: 80vh;
+}
+
+$icon-size: (
+  'lg': 1.5,
+  '2x': 2,
+  '3x': 3,
+  '4x': 4,
+  '5x': 5
+);
+
+@each $name, $value in $icon-size {
+  .i-#{$name} {
+    font-size: #{$value}rem !important;
+  }
+}

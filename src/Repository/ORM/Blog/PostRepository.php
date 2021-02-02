@@ -8,6 +8,8 @@ use App\Entity\Blog\Post;
 use App\Gateway\DoctrineBehavior\DoctrineRemoveAwareTrait;
 use App\Repository\PostRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Workflow\WorkflowInterface;
@@ -66,5 +68,24 @@ class PostRepository extends ServiceEntityRepository implements PostRepositoryIn
                 ->setParameter('status', implode(',', $allowedStatus));
         }
         return $qb->getQuery();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function countPostByStatus(string $status = null): int
+    {
+        try {
+            $qb = $this
+                ->createQueryBuilder('p')
+                ->select('count (p.id)');
+            if (null !== $status) {
+                $qb->where('p.status = :status')
+                   ->setParameter('status', $status);
+            }
+           return (int) $qb->getQuery()->getSingleScalarResult();
+        } catch (NoResultException | NonUniqueResultException $e) {
+            return 0;
+        }
     }
 }

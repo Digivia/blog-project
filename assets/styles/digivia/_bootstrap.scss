@@ -27,3 +27,9 @@ $input-bg: $gray-300;
     background-color: $value !important;
   }
 }
+// Mixin for text-* available for each theme color
+@each $color, $value in $theme-colors {
+  .text-#{$color} {
+    color: $value !important;
+  }
+}
