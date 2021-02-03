@@ -1,0 +1,5 @@
+#!/bin/bash
+composer install
+php /var/www/bin/console doctrine:migration:migrate --no-interaction
+yarn install
+yarn build
