@@ -1,0 +1,8 @@
+App\Entity\Blog\Category:
+  root_category:
+    name: ROOT
+  blog_category:
+    name: Catégorie principale
+    parent: '@root_category'
+    enabled: true
+    description: Cette catégorie est fournie à titre d'exemple. A vous de personnaliser votre blog 😜

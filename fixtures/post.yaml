@@ -1,0 +1,8 @@
+App\Entity\Blog\Post:
+  first_post:
+    title: Mon premier article 😁
+    digest: Voici le résumé de mon premier article - c'est le premier article
+    status: draft
+    categories:
+      - '@blog_category'
+    content: "Voici le début d'un très bon article"
