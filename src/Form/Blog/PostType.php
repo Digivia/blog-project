@@ -18,7 +18,7 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class,  [
+            ->add('title', TextType::class, [
                 'label' => 'post.title.label',
                 'help'  => 'post.title.help',
                 'attr'  => ['placeholder' => 'post.title.placeholder']
@@ -30,11 +30,12 @@ class PostType extends AbstractType
             ])
             ->add('content', HiddenType::class)
             ->add('categories', EntityType::class, [
-                'label' => 'post.categories.label',
-                'help' => 'post.categories.help',
-                'class' => Category::class,
-                'choice_label' => 'name',
-                'multiple' => true,
+                'label'         => 'post.categories.label',
+                'help'          => 'post.categories.help',
+                'required'      => false,
+                'class'         => Category::class,
+                'choice_label'  => 'name',
+                'multiple'      => true,
                 'query_builder' => function (CategoryRepositoryInterface $categoryRepository) {
                     return $categoryRepository->getAllChildCategoriesQuery(true);
                 }
