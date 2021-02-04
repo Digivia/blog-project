@@ -34,7 +34,6 @@ export default function () {
         // editor.addEventListener('input', (e) => autogrow(e.target))
     })
     const autogrow = (element) => {
-        console.log(element);
         element.style.height = 'inherit'
         // Get the computed styles for the element
         let computed = window.getComputedStyle(element)
