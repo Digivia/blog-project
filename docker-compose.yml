@@ -35,12 +35,3 @@ services:
       PMA_HOST: mariadb
       PMA_USER: root
       PMA_PASSWORD: azerty
-#  node:
-#    build:
-#      context: ./docker/node
-#    working_dir: /var/www
-#    command: yarn run dev
-#    volumes:
-#      - .:/var/www
-#    ports:
-#      - 3000:3000

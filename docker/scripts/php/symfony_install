@@ -1,5 +1,6 @@
 #!/bin/bash
 composer install
 php /var/www/bin/console doctrine:migration:migrate --no-interaction
+php /var/www/bin/console hautelook:fixtures:load --no-interaction
 yarn install
 yarn build
