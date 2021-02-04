@@ -4,6 +4,10 @@ php_container_id = $(shell docker ps --filter name="_php_" -q)
 stop:
 	docker-compose down
 
+.PHONY: build
+build:
+	docker-compose up --build -d
+
 .PHONY: start
 start:
 	docker-compose up -d

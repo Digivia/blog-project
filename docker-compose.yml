@@ -3,6 +3,7 @@ services:
   mariadb:
     image: mariadb:10.5.8
     ports: ['3306:3306']
+    restart: unless-stopped
     volumes:
       - ./data:/var/lib/mysql
     environment:
@@ -13,6 +14,9 @@ services:
   php:
     build: ./docker/php
     ports: ['9000:9000']
+    restart: unless-stopped
+    depends_on:
+      - mariadb
     volumes:
       - .:/var/www:cached
       - ./docker/scripts/php:/scripts
@@ -20,10 +24,13 @@ services:
     build: ./docker/nginx
     ports: ['80:80']
     volumes: ['.:/var/www:cached']
+    restart: unless-stopped
   phpmyadmin:
     image: phpmyadmin
     ports: ['8080:80']
     restart: always
+    depends_on:
+      - mariadb
     environment:
       PMA_HOST: mariadb
       PMA_USER: root
