@@ -35,6 +35,13 @@
                                         type="submit">{% include '@admin/_partials/svg/search.svg.twig' %}</button>
                             </form>
                         {% endif %}
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="{{ path('app_logout') }}" class="ms-3" data-bs-toggle="tooltip" title="Se déconnecter">
+                                    <i class="bi bi-box-arrow-in-right i-2x text-danger"></i>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>

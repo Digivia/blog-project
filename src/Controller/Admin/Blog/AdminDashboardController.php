@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\RouteCatalog;
 
-class AdminDashboardController extends AbstractController
+final class AdminDashboardController extends AbstractController
 {
     /**
      * @Route("/admin/blog/dashboard", name=RouteCatalog::ADMIN_DASHBOARD, methods={"GET"})
