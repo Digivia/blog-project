@@ -21,6 +21,11 @@ $enable-gradients: true;
 $enable-shadows: true;
 $input-bg: $gray-300;
 
+// Fix icon line height
+.bi:before {
+  line-height: inherit;
+}
+
 // Mixin for bg-* available for each theme color
 @each $color, $value in $theme-colors {
   .bg-#{$color} {

@@ -1,0 +1,31 @@
+{% set status = status|default('draft') %}
+{% set btn_class = btn_class|default('btn-outline-info') %}
+<div class="dropdown">
+    <a class="btn {{ btn_class }} dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        Action
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_POST_EDIT'), {'id': post.id}) }}">Modifier</a></li>
+        {% if post.status is same as('draft') %}
+            <li>
+                {% include '@admin/blog/user/_partials/_post_status_workflow_form.html.twig' with {action: 'publish', label: 'Publier'} %}
+            </li>
+        {% elseif post.status is same as('published') %}
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                {% include '@admin/blog/user/_partials/_post_status_workflow_form.html.twig' with {action: 'modify', label: 'Passer en brouillon'} %}
+            </li>
+            <li>
+                {% include '@admin/blog/user/_partials/_post_status_workflow_form.html.twig' with {action: 'delete', label: 'Passer offline'} %}
+            </li>
+        {% elseif post.status is same as('trash') %}
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                {% include '@admin/blog/user/_partials/_post_status_workflow_form.html.twig' with {action: 'undeleteToDraft', label: 'Passer en brouillon'} %}
+            </li>
+            <li>
+                {% include '@admin/blog/user/_partials/_post_status_workflow_form.html.twig' with {action: 'undeleteToPublish', label: 'Re-publier'} %}
+            </li>
+        {% endif %}
+    </ul>
+</div>

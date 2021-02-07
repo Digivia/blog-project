@@ -1,0 +1,29 @@
+user:
+  email:
+    label: Adresse Mail
+    placeholder: jarvis@iron-man.fr
+    help: L'adresse email sera utilisée comme identifiant de connexion
+  password:
+    label: Mot de passe
+    help: choisissez un mot de passe suffisement long et sécurisé
+    repeat_label: Confirmer le mot de passe
+  firstname:
+    label: Prénom
+    placeholder: "ex: Tony"
+  lastname:
+    label: Nom
+    placeholder: "ex: Stark"
+  enabled:
+    label: compte actif ?
+    help: Seuls les comptes actifs peuvent se connecter
+  roles:
+    label: Autorisations
+    help: les rôles définissent les autorisations accordées à l'utilisateur
+
+action:
+  add:
+    success: L'utilisateur a été créé avec succès
+    error: L'utilisateur n'a pas pu être créé
+  edit:
+    success: L'utilisateur a été modifié avec succès
+    error: L'utilisateur n'a pas pu être modifié

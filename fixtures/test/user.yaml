@@ -3,3 +3,6 @@ App\Entity\User\User:
     email: 'admin@localhost.me'
     plainPassword: 'azerty'
     roles: ['ROLE_ADMIN']
+    firstname: John
+    lastname: DOE
+    enabled: true

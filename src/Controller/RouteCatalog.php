@@ -6,6 +6,12 @@ interface RouteCatalog
 {
     public const ADMIN_DASHBOARD = 'blog_admin_dashboard';
 
+    public const ADMIN_USER_INDEX  = 'blog_admin_user_index';
+    public const ADMIN_USER_SHOW   = 'blog_admin_user_show';
+    public const ADMIN_USER_NEW    = 'blog_admin_user_new';
+    public const ADMIN_USER_EDIT   = 'blog_admin_user_edit';
+    public const ADMIN_USER_DELETE = 'blog_admin_user_delete';
+
     public const ADMIN_CATEGORY_INDEX  = 'blog_admin_category_index';
     public const ADMIN_CATEGORY_TREE   = 'blog_admin_category_tree';
     public const ADMIN_CATEGORY_SHOW   = 'blog_admin_category_show';

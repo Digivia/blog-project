@@ -1,0 +1,3 @@
+user:
+  password:
+    repeat_error: Les 2 mots de passe doivent être identiques

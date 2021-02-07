@@ -9,6 +9,7 @@ use App\Gateway\DoctrineBehavior\DoctrineRemoveAwareTrait;
 use App\Gateway\DoctrineBehavior\DoctrineSaveAwareTrait;
 use App\Repository\UserRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -40,5 +41,25 @@ final class UserRepository extends ServiceEntityRepository implements PasswordUp
 
         $user->setPassword($newEncodedPassword);
         $this->save($user);
+    }
+
+    /**
+     * @param string|null $search
+     * @return Query
+     */
+    public function getUserQuery(string $search = null): Query
+    {
+        $qb = $this->createQueryBuilder('u');
+        // Search by keyword
+        if (null !== $search && strlen($search)) {
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->like('u.email', ':search'),
+                    $qb->expr()->like('u.firstname', ':search'),
+                    $qb->expr()->like('u.lastname', ':search')
+                ))
+                ->setParameter('search', "%{$search}%");
+        }
+        return $qb->getQuery();
     }
 }

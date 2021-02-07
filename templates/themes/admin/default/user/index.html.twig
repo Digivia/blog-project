@@ -1,0 +1,86 @@
+{% extends '@admin/admin_base.html.twig' %}
+
+{% block title %}Gestion utilisateurs{% endblock %}
+
+{% block content %}
+    <h1>
+        #Utilisateurs
+        <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_USER_NEW')) }}" class="btn btn-outline-orange float-right">
+            {% include '@admin/_partials/svg/pencil.svg.twig' %}
+            Ajouter un utilisateur
+        </a>
+    </h1>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(users, 'Email', 'u.email', {class: 'link-orange', 'data-bs-toggle': 'tooltip', title: 'Trier par email'}, app.request.query.all) }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Prénom', 'u.firstname', {class: 'link-orange', 'data-bs-toggle': 'tooltip', title: 'Trier par prénom'}, app.request.query.all) }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Nom', 'u.lastname', {class: 'link-orange', 'data-bs-toggle': 'tooltip', title: 'Trier par nom'}, app.request.query.all) }}</th>
+                <th>Créé le</th>
+                <th>Actif</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>
+                    <a href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_USER_SHOW'), {'id': user.id}) }}" class="link-info">
+                        {{ user.email }}
+                    </a>
+                </td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.createdAt|date('d-m-Y H:i') }}</td>
+                <td>
+                    {% if user.enabled %}
+                        <i class="bi bi-shield-check text-success" data-bs-toggle="tooltip" title="Utilisateur actif"></i>
+                    {% else %}
+                        <i class="bi bi-shield-slash text-danger" data-bs-toggle="tooltip" title="Utilisateur désactivé"></i>
+                    {% endif%}
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-outline-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li
+                            ><a class="dropdown-item" href="{{ path(constant('App\\Controller\\RouteCatalog::ADMIN_USER_EDIT'), {'id': user.id}) }}">
+                                    Modifier
+                                </a>
+                            </li>
+                            <li>
+                                {% if user.enabled %}
+                                    <a href="" class="dropdown-item">
+                                        Désactiver
+                                    </a>
+                                {% else %}
+                                    <a href="" class="dropdown-item">
+                                        Activer
+                                    </a>
+                                {% endif%}
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">
+                    <div class="alert alert-warning m-3">
+                        {% include '@admin/_partials/svg/alert_circle.svg.twig' %}
+                        Il n'y a aucun utilisateur pour le moment...
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="count">
+        Total : {{ users.getTotalItemCount }} article(s)
+    </div>
+    <div class="navigation m-auto mt-3">
+        {{ knp_pagination_render(users, null, app.request.query.all) }}
+    </div>
+{% endblock %}

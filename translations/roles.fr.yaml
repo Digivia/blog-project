@@ -1,0 +1,6 @@
+roles:
+  ROLE_USER        : Utilisateur
+  ROLE_CONTRIBUTOR : Contributeur
+  ROLE_AUTHOR      : Auteur
+  ROLE_EDITOR      : Rédacteur en chef
+  ROLE_ADMIN       : Administrateur

@@ -3,39 +3,75 @@
 namespace App\Entity\User;
 
 use App\Repository\ORM\User\UserRepository;
+use App\Security\Roles\Roles;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class User implements UserInterface
 {
+    Use TimestampableEntity, SoftDeleteableEntity;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
-    /** @var string  */
-    private string $plainPassword;
+    private ?string $plainPassword;
 
     /**
-     * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private ?string $password;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private ?string $firstname;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private ?string $lastname;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $enabled;
+
+    public function __construct()
+    {
+        $this->enabled = false;
+    }
+
+    /**
+     * Prepare User entity for admin creation
+     * @return User
+     */
+    public static function createByAdmin(): User
+    {
+        $user = new self;
+        $user->enabled = true;
+        $user->roles = [Roles::ROLE_USER, Roles::ROLE_CONTRIBUTOR];
+        return $user;
+    }
 
     public function getId(): ?int
     {
@@ -124,5 +160,38 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): self
+    {
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(?string $lastname): User
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): User
+    {
+        $this->enabled = $enabled;
+        return $this;
     }
 }

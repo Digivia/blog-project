@@ -1,0 +1,15 @@
+App\Entity\User\User:
+  admin:
+    email: 'admin@localhost.me'
+    plainPassword: 'azerty'
+    roles: ['ROLE_ADMIN']
+    firstname: John
+    lastname: DOE
+    enabled: true
+  user{1..10}:
+    firstname: '<fr_FR:firstName()>'
+    lastname: '<fr_FR:lastName()>'
+    email: '<email()>'
+    plainPassword: azerty
+    enabled: <boolean(50)>
+    roles: ['ROLE_USER']

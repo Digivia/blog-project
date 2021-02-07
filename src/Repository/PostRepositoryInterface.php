@@ -17,7 +17,7 @@ use App\Gateway\GatewayInterface;
 interface PostRepositoryInterface extends GatewayInterface
 {
     /**
-     * Count post for a specific status, or for all status if null
+     * Count user for a specific status, or for all status if null
      * @param string|null $status
      * @return int
      */

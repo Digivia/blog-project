@@ -1,0 +1,11 @@
+{% extends '@admin/admin_base.html.twig' %}
+
+{% block title %}Modifier l'utilisateur {{ user.firstname ~ ' ' ~ user.lastname }}{% endblock %}
+
+{% block content %}
+    <h1>#Edit « <small>{{ user.firstname ~ ' ' ~ user.lastname }}</small> »</h1>
+    {{ include('@admin/user/_partials/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div class="position-relative">
+        {{ include('@admin/user/_partials/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
