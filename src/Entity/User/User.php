@@ -16,7 +16,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-    Use TimestampableEntity, SoftDeleteableEntity;
+    use TimestampableEntity, SoftDeleteableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -58,7 +59,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->enabled = false;
+        $this->enabled       = false;
     }
 
     /**
@@ -67,9 +68,9 @@ class User implements UserInterface
      */
     public static function createByAdmin(): User
     {
-        $user = new self;
-        $user->enabled = true;
-        $user->roles = [Roles::ROLE_USER, Roles::ROLE_CONTRIBUTOR];
+        $user                = new self;
+        $user->enabled       = true;
+        $user->roles         = [Roles::ROLE_USER, Roles::ROLE_CONTRIBUTOR];
         return $user;
     }
 
@@ -97,7 +98,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -119,12 +120,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPlainPassword(): string
+    public function getPlainPassword(): ?string
     {
-        return $this->plainPassword;
+        return $this->plainPassword ?? null;
     }
 
-    public function setPlainPassword(string $plainPassword): User
+    public function setPlainPassword(?string $plainPassword): User
     {
         $this->plainPassword = $plainPassword;
         return $this;
@@ -135,7 +136,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self

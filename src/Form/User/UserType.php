@@ -42,7 +42,7 @@ class UserType extends AbstractType
                 'type'            => PasswordType::class,
                 'invalid_message' => 'user.password.repeat_error',
                 'options'         => ['attr' => ['class' => 'password-field']],
-                'required'        => true,
+                'required'        => false,
                 'first_options'   => ['label' => 'user.password.label'],
                 'second_options'  => [
                     'label' => 'user.password.repeat_label',

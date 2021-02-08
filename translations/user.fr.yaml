@@ -22,8 +22,8 @@ user:
 
 action:
   add:
-    success: L'utilisateur a été créé avec succès
-    error: L'utilisateur n'a pas pu être créé
+    success: L'utilisateur %username% a été créé avec succès
+    error: L'utilisateur %username% n'a pas pu être créé
   edit:
-    success: L'utilisateur a été modifié avec succès
-    error: L'utilisateur n'a pas pu être modifié
+    success: L'utilisateur %username% a été modifié avec succès
+    error: L'utilisateur %username% n'a pas pu être modifié

@@ -61,10 +61,11 @@ final class UserFormHandler extends AbstractHandler
         // Creation or edition ?
         $creation = $options['creation'] ?? false;
         // Add flash message
+        $username = $data->getFirstname() . " " . $data->getLastname();
         $message = $creation ? 'action.add.success' : 'action.edit.success';
         $this->flashMessage->add(
             'success',
-            $this->translator->trans($message, [], 'user')
+            $this->translator->trans($message, ["%username%" => $username ], 'user')
         );
     }
 
