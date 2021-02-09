@@ -50,4 +50,6 @@ Assets
 ------
 
 For the front part, I chose to go with vanilla js, and for the styles, I rely on Bootstrap5, because it got rid of jQuery. I then customized the styles and added what I needed. Everything is tidy in the assets directory.
-Everything is built using Webpack Encore (thanks Symfony!) 
+Everything is built using Webpack Encore (thanks Symfony!).
+I use awesome external libs, like [Quill](https://quilljs.com), [HighlightJs](https://highlightjs.org), [Choice.Js](https://joshuajohnson.co.uk/Choices/).
+
