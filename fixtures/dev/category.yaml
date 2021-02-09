@@ -6,3 +6,14 @@ App\Entity\Blog\Category:
     parent: '@root_category'
     enabled: true
     description: Cette catégorie est fournie à titre d'exemple. A vous de personnaliser votre blog 😜
+  second_category:
+    name: Autre catégorie
+    parent: '@root_category'
+    enabled: true
+    description: Cette catégorie est fournie à titre d'exemple. A vous de personnaliser votre blog 😜
+  child_category{1..5}:
+    name: '<text(20)>'
+    parent: '@second_category'
+    enabled: '<boolean(60)>'
+    description: '<text(200)>'
+

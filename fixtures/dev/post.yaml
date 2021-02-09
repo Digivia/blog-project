@@ -2,7 +2,15 @@ App\Entity\Blog\Post:
   first_post:
     title: Mon premier article 😁
     digest: Voici le résumé de mon premier article - c'est le premier article
-    status: draft
+    status: 'published'
+    publishedAt: <dateTimeBetween('2020-12-01', '2021-01-31')>
     categories:
       - '@blog_category'
     content: "Voici le début d'un très bon article"
+  posts{1..30}:
+    title: '<text(50)>'
+    digest: '<text(200)>'
+    status: <randomElement(['draft', 'trash', 'draft'])>
+    categories:
+      - '@child_category<numberBetween(1, 5)>'
+    content: '<paragraphs(10, true)>'
