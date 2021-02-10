@@ -1,6 +1,7 @@
 resources:
   App\Entity\Blog\Post:
     attributes:
+      security: 'is_granted("ROLE_API")'
       pagination_client_items_per_page: true
       pagination_items_per_page: 5
       normalization_context:

@@ -18,6 +18,7 @@
         "knplabs/knp-menu-bundle": "^3.1",
         "knplabs/knp-paginator-bundle": "^5.4",
         "knplabs/knp-time-bundle": "^1.14",
+        "lexik/jwt-authentication-bundle": "^2.11",
         "liip/imagine-bundle": "^2.3",
         "nelmio/cors-bundle": "^2.1",
         "nucleos/antispam-bundle": "^2.1",

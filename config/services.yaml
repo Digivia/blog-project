@@ -39,6 +39,11 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
+    # Api Jwt Décorator
+    App\Api\OpenApi\JwtDecorator:
+        decorates: 'api_platform.openapi.factory'
+        autoconfigure: false
+
     # Menu setup
     app.admin_menu_builder:
         class: App\Menu\AdminMenuBuilder

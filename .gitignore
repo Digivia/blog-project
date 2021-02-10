@@ -34,3 +34,7 @@ yarn-error.log
 \.DS_Store
 /data/
 ###< Misc ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
