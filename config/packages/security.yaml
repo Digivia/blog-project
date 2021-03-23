@@ -46,6 +46,7 @@ security:
     role_hierarchy: !php/const App\Security\Roles\Roles::ROLE_HIERARCHY
 
     access_control:
+         - { path: ^/admin/user, roles: ROLE_ADMIN }
          - { path: ^/admin, roles: ROLE_CONTRIBUTOR }
          - { path: ^/, roles: PUBLIC_ACCESS }
          - { path: ^/login, roles: PUBLIC_ACCESS }
