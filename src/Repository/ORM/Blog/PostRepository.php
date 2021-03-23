@@ -7,11 +7,13 @@ namespace App\Repository\ORM\Blog;
 use App\Entity\Blog\Post;
 use App\Gateway\DoctrineBehavior\DoctrineRemoveAwareTrait;
 use App\Repository\PostRepositoryInterface;
+use App\Security\Roles\Roles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Workflow\WorkflowInterface;
 
 /**
@@ -25,11 +27,13 @@ class PostRepository extends ServiceEntityRepository implements PostRepositoryIn
     use DoctrineRemoveAwareTrait;
 
     private WorkflowInterface $workflow;
+    private Security $security;
 
-    public function __construct(ManagerRegistry $registry, WorkflowInterface $blogPublishStateMachine)
+    public function __construct(ManagerRegistry $registry, WorkflowInterface $blogPublishStateMachine, Security $security)
     {
         parent::__construct($registry, Post::class);
         $this->workflow = $blogPublishStateMachine;
+        $this->security = $security;
     }
 
     /**
@@ -62,11 +66,19 @@ class PostRepository extends ServiceEntityRepository implements PostRepositoryIn
                 ))
                 ->setParameter('search', "%{$search}%");
         }
+        // Security - if no user or not an Editor user, restrict to published posts
+        if (null === $this->security->getUser()) {
+            $allowedStatus = ['published'];
+        } elseif (!$this->security->isGranted(Roles::ROLE_EDITOR)) {
+            $qb->andWhere('p.author = :user')
+                ->setParameter('user', $this->security->getUser());
+        }
         // filter status
         if (!in_array('all', $allowedStatus) && count($allowedStatus)) {
             $qb->andWhere('p.status IN (:status)')
                 ->setParameter('status', implode(',', $allowedStatus));
         }
+
         return $qb->getQuery();
     }
 

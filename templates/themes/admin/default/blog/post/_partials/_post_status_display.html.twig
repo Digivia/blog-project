@@ -1,6 +1,8 @@
 {% set status = status|default('draft') %}
 {% if status is same as('draft') %}
     <i class="h4 bi bi-vector-pen text-warning" data-bs-toggle="tooltip" title="Brouillon"></i>
+{% elseif status is same as('to_publish')%}
+    <i class="h4 bi bi-hourglass-split text-info" data-bs-toggle="tooltip" title="Demande de publication"></i>
 {% elseif status is same as('published')%}
     <i class="h4 bi bi-check-circle-fill text-success" data-bs-toggle="tooltip" title="Publié"></i>
 {% elseif status is same as('trash') %}

@@ -17,7 +17,7 @@
                 <th>{{ knp_pagination_sortable(posts, 'Statut', 'p.status', {class: 'link-orange', 'data-bs-toggle': 'tooltip', title: 'Trier par statut'}, app.request.query.all) }}</th>
                 <th>Publié le</th>
                 <th>{{ knp_pagination_sortable(posts, 'Créé le', 'p.createdAt', {class: 'link-orange', 'data-bs-toggle': 'tooltip', title: 'Trier par date de création'}, app.request.query.all) }}</th>
-                <th>Mis à jour</th>
+                <th>Auteur</th>
                 <th></th>
             </tr>
         </thead>
@@ -32,7 +32,7 @@
                 <td>{% include '@admin/blog/post/_partials/_post_status_display.html.twig' with {status: post.status} %}</td>
                 <td>{{ post.publishedAt ? post.publishedAt|date('d-m-Y H:i') : '' }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('d-m-Y H:i') : '' }}</td>
-                <td>{{ post.updatedAt and post.updatedAt > post.createdAt ? post.updatedAt|date('d-m-Y H:i') : '' }}</td>
+                <td>{{ post.author.fullName }}</td>
                 <td>{% include '@admin/blog/post/_partials/_post_status_dropdown_actions.html.twig' with {status: post.status} %}</td>
             </tr>
         {% else %}

@@ -12,6 +12,8 @@ use App\Repository\PostRepositoryInterface;
 use Digivia\FormHandler\Handler\AbstractHandler;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -23,16 +25,19 @@ final class PostFormHandler extends AbstractHandler
     private FlashBagInterface   $flashMessage;
     private TranslatorInterface $translator;
     private GatewayInterface    $postRepository;
+    private ?UserInterface      $user;
 
     public function __construct(
         PostRepositoryInterface $postRepository,
         SessionInterface $session,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Security $security
     )
     {
         $this->flashMessage   = $session->getFlashBag();
         $this->translator     = $translator;
         $this->postRepository = $postRepository;
+        $this->user           = $security->getUser();
     }
 
     /**
@@ -45,6 +50,8 @@ final class PostFormHandler extends AbstractHandler
         if (!$data instanceof Post) {
             throw new BadEntityFormHandler("Only " . Post::class . " entity is allowed here");
         }
+        // Add author
+        $data->setAuthor($this->user);
         // Save data
         $this->postRepository->save($data);
         // Creation or edition ?

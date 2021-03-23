@@ -22,4 +22,6 @@ interface PostRepositoryInterface extends GatewayInterface
      * @return int
      */
     public function countPostByStatus(string $status = null): int;
+
+    public function getPostQuery(string $search = null, array $allowedStatus = ['all']);
 }

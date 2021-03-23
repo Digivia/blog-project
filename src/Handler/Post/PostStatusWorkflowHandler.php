@@ -41,6 +41,29 @@ class PostStatusWorkflowHandler
      * @param Post $post
      * @return bool
      */
+    public function askPublish(Post $post): bool
+    {
+        if (!$this->blogPublishStateMachine->can($post, 'askpublish')) {
+            $this->addError('askpublish');
+            return false;
+        }
+        $update = $this->blogPublishStateMachine->apply($post, 'askpublish');
+        if ($update) {
+            $post->setPublishedAt(new DateTime());
+            $this->entityManager->flush();
+            $this->addSuccess('askpublish');
+            return true;
+        } else {
+            $this->addError('askpublish');
+            return false;
+        }
+    }
+
+    /**
+     * Workflow publish
+     * @param Post $post
+     * @return bool
+     */
     public function publish(Post $post): bool
     {
         if (!$this->blogPublishStateMachine->can($post, 'publish')) {
@@ -78,6 +101,29 @@ class PostStatusWorkflowHandler
             return true;
         } else {
             $this->addError('draft');
+            return false;
+        }
+    }
+
+    /**
+     * Workflow delete
+     * @param Post $post
+     * @return bool
+     */
+    public function draftToTrash(Post $post): bool
+    {
+        if (!$this->blogPublishStateMachine->can($post, 'drafttotrash')) {
+            $this->addError('trash');
+            return false;
+        }
+        $update = $this->blogPublishStateMachine->apply($post, 'drafttotrash');
+        if ($update) {
+            $post->setPublishedAt(null);
+            $this->entityManager->flush();
+            $this->addSuccess('trash');
+            return true;
+        } else {
+            $this->addError('trash');
             return false;
         }
     }

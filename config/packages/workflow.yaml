@@ -10,21 +10,35 @@ framework:
             initial_marking: draft
             places:
                 - draft
+                - to_publish
                 - published
                 - trash
             transitions:
-                publish:
+                askpublish:
+                    guard: "user === subject.getAuthor()"
                     from: draft
+                    to: to_publish
+                publish:
+                    guard: "is_granted('ROLE_EDITOR')"
+                    from: [draft, to_publish]
                     to: published
                 modify:
+                    guard: "is_granted('ROLE_EDITOR') or user === subject.getAuthor()"
                     from: published
                     to: draft
                 delete:
+                    guard: "is_granted('ROLE_EDITOR') or user === subject.getAuthor()"
                     from: published
                     to: trash
+                drafttotrash:
+                    guard: "is_granted('ROLE_EDITOR') or user === subject.getAuthor()"
+                    from: draft
+                    to: trash
                 undeletetopublish:
+                    guard: "is_granted('ROLE_EDITOR')"
                     from: trash
                     to: published
                 undeletetodraft:
+                    guard: "is_granted('ROLE_EDITOR') or user === subject.getAuthor()"
                     from: trash
                     to: draft

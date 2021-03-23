@@ -7,6 +7,7 @@ App\Entity\Blog\Post:
     categories:
       - '@blog_category'
     content: "Voici le début d'un très bon article"
+    author: '@admin'
   posts{1..30}:
     title: '<text(50)>'
     digest: '<text(200)>'
@@ -14,3 +15,4 @@ App\Entity\Blog\Post:
     categories:
       - '@child_category<numberBetween(1, 5)>'
     content: '<paragraphs(10, true)>'
+    author: '@user<numberBetween(1, 10)>'
