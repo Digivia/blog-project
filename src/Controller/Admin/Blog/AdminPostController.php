@@ -6,6 +6,7 @@ use App\Entity\Blog\Post;
 use App\Handler\Form\Post\PostFormHandler;
 use App\Handler\Post\PostStatusWorkflowHandler;
 use App\Repository\PostRepositoryInterface;
+use App\Security\Voter\PostVoter;
 use Digivia\FormHandler\HandlerFactory\HandlerFactoryInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,8 +31,7 @@ final class AdminPostController extends AbstractController
     {
         $posts = $paginator->paginate(
             $postRepository->getPostQuery($request->query->get('search-keyword')),
-            $request->query->getInt('page', 1),
-            10
+            $request->query->getInt('page', 1)
         );
         return $this->render('@admin/blog/post/index.html.twig', [
             'posts' => $posts,
@@ -64,6 +64,7 @@ final class AdminPostController extends AbstractController
      */
     public function show(Post $post): Response
     {
+        $this->denyAccessUnlessGranted(PostVoter::VIEW, $post);
         return $this->render('@admin/blog/post/show.html.twig', [
             'post' => $post,
         ]);
@@ -78,6 +79,7 @@ final class AdminPostController extends AbstractController
      */
     public function edit(Request $request, Post $post, HandlerFactoryInterface $factory): Response
     {
+        $this->denyAccessUnlessGranted(PostVoter::EDIT, $post);
         $handler = $factory->createHandler(PostFormHandler::class);
         if ($handler->handle($request, $post)) {
             return $this->redirectToRoute(RouteCatalog::ADMIN_POST_INDEX);
@@ -116,6 +118,7 @@ final class AdminPostController extends AbstractController
      */
     public function delete(Request $request, Post $post, PostRepositoryInterface $postRepository): Response
     {
+        $this->denyAccessUnlessGranted(PostVoter::DELETE, $post);
         if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
             $postRepository->remove($post);
         }
