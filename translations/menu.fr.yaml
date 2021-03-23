@@ -9,3 +9,8 @@ menu:
     label: Articles
     all: Tous les articles
     new : Nouvel article
+  user:
+    label: Utilisateurs
+    all: Tous les utilisateurs
+    new: Nouvel utilisateur
+
