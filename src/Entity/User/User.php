@@ -2,8 +2,11 @@
 
 namespace App\Entity\User;
 
+use App\Entity\Blog\Post;
 use App\Repository\ORM\User\UserRepository;
 use App\Security\Roles\Roles;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -57,9 +60,15 @@ class User implements UserInterface
      */
     private bool $enabled;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="author")
+     */
+    private $posts;
+
     public function __construct()
     {
         $this->enabled       = false;
+        $this->posts = new ArrayCollection();
     }
 
     /**
@@ -194,5 +203,40 @@ class User implements UserInterface
     {
         $this->enabled = $enabled;
         return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getAuthor() === $this) {
+                $post->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return ($this->firstname ?? '') . ' ' . ($this->lastname ?? '');
     }
 }

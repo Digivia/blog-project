@@ -2,6 +2,7 @@
 
 namespace App\Entity\Blog;
 
+use App\Entity\User\User;
 use App\Repository\ORM\Blog\PostRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -12,6 +13,7 @@ use Exception;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -86,6 +88,12 @@ class Post
      * @var ?EmbeddedFile
      */
     private ?EmbeddedFile $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?UserInterface $author;
 
     public function __construct()
     {
@@ -239,5 +247,17 @@ class Post
     public function getImage(): ?EmbeddedFile
     {
         return $this->image;
+    }
+
+    public function getAuthor(): ?UserInterface
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?UserInterface $author): self
+    {
+        $this->author = $author;
+
+        return $this;
     }
 }
