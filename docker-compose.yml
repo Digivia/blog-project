@@ -5,7 +5,7 @@ services:
     ports: ['3306:3306']
     restart: unless-stopped
     volumes:
-      - ./data:/var/lib/mysql
+      - ./data/db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=azerty
       - MYSQL_DATABASE=blog
@@ -18,12 +18,17 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - .:/var/www:cached
+      - .:/var/www
       - ./docker/scripts/php:/scripts
   nginx:
     build: ./docker/nginx
-    ports: ['80:80']
-    volumes: ['.:/var/www:cached']
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - .:/var/www
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     restart: unless-stopped
   phpmyadmin:
     image: phpmyadmin
@@ -35,3 +40,8 @@ services:
       PMA_HOST: mariadb
       PMA_USER: root
       PMA_PASSWORD: azerty
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
