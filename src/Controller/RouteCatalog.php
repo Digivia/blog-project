@@ -4,6 +4,8 @@ namespace App\Controller;
 
 interface RouteCatalog
 {
+    public const FRONT_HOMEPAGE = 'blog_front_homepage';
+
     public const ADMIN_DASHBOARD = 'blog_admin_dashboard';
 
     public const ADMIN_USER_INDEX  = 'blog_admin_user_index';

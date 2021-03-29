@@ -1,0 +1,27 @@
+{% extends '@front/base.html.twig' %}
+
+{% block body %}
+{#<div class="container-fluid">#}
+{#    <div class="row">#}
+{#        <div class="col-6 col-lg-3">#}
+{#            <img src="{{ asset('build/images/logo/digivia.svg') }}" alt="Blog Digivia" class="img-fluid" style="max-height: 300px">#}
+{#        </div>#}
+{#        <div class="col-12 col-lg-9">#}
+{#            test#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+<div style="position:relative;flex:none">
+    <div id="wave-container" class="css-0 eepbx3x0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#5cbacc" fill-opacity="1" d="M0,96L48,122.7C96,149,192,203,288,229.3C384,256,480,256,576,218.7C672,181,768,107,864,96C960,85,1056,139,1152,154.7C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+    <div style="position: absolute; top:0; left: 10px">
+        <img src="{{ asset('build/images/logo/digivia.svg') }}" alt="Blog Digivia" class="img-fluid" style="max-height: 300px">
+    </div>
+</div>
+<div style="background-color: #5cbacc; height: 100vh">
+    <h1>Le Blog</h1>
+</div>
+{% endblock %}
