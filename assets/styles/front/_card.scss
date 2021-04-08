@@ -1,0 +1,11 @@
+.card {
+  border-radius: 0;
+  border: 0;
+  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.1);
+  &:hover {
+    box-shadow: 0 7px 7px 0 rgba(0, 0, 0, 0.3);
+  }
+  .image {
+    border: 10px solid #FFFFFF;
+  }
+}

@@ -1,4 +1,5 @@
 /* Bootstrap */
+@import "digivia/variables";
 @import "digivia/bootstrap";
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
@@ -8,7 +9,6 @@
 /* Quill */
 @import 'quill/quill.scss';
 /* Digivia */
-@import "digivia/variables";
 @import "digivia/helpers";
 @import "digivia/template";
 @import "digivia/navbar";

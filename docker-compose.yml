@@ -11,37 +11,62 @@ services:
       - MYSQL_DATABASE=blog
       - MYSQL_USER=root
       - MYSQL_PASSWORD=azerty
-  php:
-    build: ./docker/php
-    ports: ['9000:9000']
-    restart: unless-stopped
-    depends_on:
-      - mariadb
+    networks:
+      - proxy-net
+  app:
+    image: webdevops/php-nginx-dev:7.4
+    container_name: blog-app
     volumes:
-      - .:/var/www
-      - ./docker/scripts/php:/scripts
-  nginx:
-    build: ./docker/nginx
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - .:/var/www
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - .:/rootapp
+      - ./.docker/nginx.conf:/opt/docker/etc/nginx/vhost.conf
+    working_dir: /rootapp
+    env_file:
+      - ./.env
+    environment:
+      # PHP config
+      # @see https://dockerfile.readthedocs.io/en/latest/content/DockerImages/dockerfiles/php-nginx-dev.html#environment-variables
+      PHP_DATE_TIMEZONE: "Europe/Paris"
+      PHP_DISPLAY_ERRORS: "on"
+      PHP_MEMORY_LIMIT: 1024M
+      PHP_MAX_EXECUTION_TIME: 86400
+      PHP_REQUEST_TERMINATE_TIMEOUT: 86400
+      PHP_POST_MAX_SIZE: 50M
+      PHP_UPLOAD_MAX_FILESIZE: 100M
+      PHP_OPCACHE_REVALIDATE_FREQ: 0
+      php.xdebug.var_display_max_depth: 10
+      php.xdebug.var_display_max_data: 2048
+      # Blackfire !
+      PHP_DEBUGGER: "blackfire"
+      BLACKFIRE_SERVER_ID: "0b1b8ac2-6d03-445a-80d9-1cb8e43e84ae"
+      BLACKFIRE_SERVER_TOKEN: "6a3ade471c4c4145f9bc2b9d5f0487254e225586d2ad94783b501fa9ac2a6a84"
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.http.routers.blog.rule=Host(`blog.digivia.fr`)"
+      - "traefik.http.routers.blog.tls=true"
+      - "traefik.http.routers.blog.tls.certresolver=digivia_resolver"
+    networks:
+      - proxy-net
   phpmyadmin:
     image: phpmyadmin
-    ports: ['8080:80']
+    ports: ['8081:80']
     restart: always
     depends_on:
       - mariadb
     environment:
       PMA_HOST: mariadb
-      PMA_USER: root
-      PMA_PASSWORD: azerty
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      #PMA_USER: root
+      #PMA_PASSWORD: azerty
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8081"
+      - "traefik.http.routers.blog-db.rule=Host(`db.blog.digivia.fr`)"
+      - "traefik.http.routers.blog-db.tls=true"
+      - "traefik.http.routers.blog-db.tls.certresolver=digivia_resolver"
+    networks:
+      - proxy-net
+networks:
+  proxy-net:
+    external:
+      name: traefik-net

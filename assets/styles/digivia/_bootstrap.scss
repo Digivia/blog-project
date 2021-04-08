@@ -10,11 +10,13 @@ $theme-colors: (
         "warning":      $warning,
         "danger":       $danger,
         "light":        $light,
+        "gray":         $gray-500,
         "mid-gray":     $gray-800,
         "dark":         $dark,
         "teal":         $teal-500,
         "orange":       $orange-500,
-        "pink":         $pink-500
+        "pink":         $pink-500,
+        "dgv-blue":     $dgv-blue-color
 );
 
 $enable-gradients: true;
