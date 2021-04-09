@@ -16,7 +16,7 @@ class PostExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('getPost', [$this, 'getPost']),
+            new TwigFunction('getPost', [PostRuntime::class, 'getPost']),
         ];
     }
 }

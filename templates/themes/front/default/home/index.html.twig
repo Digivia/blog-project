@@ -67,19 +67,21 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-8 col-md-6 col-lg-4 d-flex mb-5">
+                {% set post = getPost(1) %}
                 <div class="card">
                     <div class="image position-relative">
                         <img class="card-img" src="https://placeimg.com/200/150/tech?t=1232146789" alt="Bologna">
                         <div class="card-img-overlay">
-                            <a href="#" class="btn btn-light btn-sm">Doctrine</a>
-                            <a href="#" class="btn btn-light btn-sm">Symfony</a>
+                            {% for category in post.categories %}
+                            <a href="#" class="btn btn-light btn-sm">{{ category.name }}</a>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="card-body d-flex flex-column">
-                        <h4 class="card-title">Les entités doctrine</h4>
+                        <h4 class="card-title">{{ post.title }}</h4>
                         <div class="mt-auto">
                             <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate distinctio est iusto nesciunt tenetur! Dolore eos ipsum labore nobis nostrum, optio praesentium quas quibusdam voluptate.
+                                {{ post.excerpt }}
                             </p>
                             <small class="text-muted">
                                 <i class="bi bi-clock-history"></i> il y a 5 jours
